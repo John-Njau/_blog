@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use App\Models\Post;
-use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
@@ -21,16 +19,20 @@ class PostController extends Controller
 //        inherit the getPosts() method from the Post model
 //        $posts = $this->getPosts();
 
-        return view('posts', [
-            'posts' => Post::latest()->filter(request(['search']))->get(),
-            'categories' => Category::all()
+//        return Post::latest()->filter(
+//            request(['search', 'category', 'author'])
+//        )->paginate(6)->withQueryString();
+
+
+        return view('posts.index', [
+            'posts' => Post::latest()->filter(request(['search', 'category', 'author']))->paginate(6)->withQueryString(),
         ]);
 
     }
 
     public function show(Post $post)
     {
-        return view("post", [
+        return view("posts.show", [
             "post" => $post
         ]);
     }
