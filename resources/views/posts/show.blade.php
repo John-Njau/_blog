@@ -71,14 +71,20 @@
 
                     </div>
                 </div>
+
+<!--                comments -->
+                <section class="col-span-8 col-start-5 mt-10 space-y-6">
+                   <x-post-comment :post="$post" ></x-post-comment>
+
+                </section>
             </article>
         </main>
 
 
+
+
     </section>
-    {{-- <x-button>
-        <a href="/">Go Back</a>
-    </x-button> --}}
+
 
 
 </x-layout>

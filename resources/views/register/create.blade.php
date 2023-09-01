@@ -4,11 +4,11 @@
             <h1 class="text-center font-bold text-xl">
                 Register!
             </h1>
-            <form action="/register" method="post" class="mt-10">
+            <form method="POST" action="/register"  class="mt-10">
                 @csrf
                 <div class="mb-6">
                     <label class="block mb-2 uppercase font-bold text-xs text-gray-700"
-                           for="username"
+                           for="name"
                     >
                         Name
                     </label>
@@ -16,11 +16,12 @@
                     <input type="text" class="border border-gray-400 p-2 w-full"
                            name="name"
                            id="name"
-                           placeholder="Your user Name"
+                           value="{{ old('name') }}"
+                           placeholder="Your Name"
                            required
                     >
 
-                    @error('')
+                    @error('name')
                     <p class="text-red-500 text-xs mt-2">
                         {{ $message }}
                     </p>
@@ -38,11 +39,12 @@
                     <input type="text" class="border border-gray-400 p-2 w-full"
                     name="username"
                     id="username"
-                    placeholder="Your Name"
+                    value="{{ old('username') }}"
+                    placeholder="Your User Name"
                     required
                     >
 
-                    @error('')
+                    @error('username')
                     <p class="text-red-500 text-xs mt-2">
                         {{ $message }}
                     </p>
@@ -59,11 +61,12 @@
                     <input type="email" class="border border-gray-400 p-2 w-full"
                     name="email"
                     id="email"
+                    value="{{ old('email') }}"
                     placeholder="Your Email Address"
                     required
                     >
 
-                    @error('')
+                    @error('email')
                     <p class="text-red-500 text-xs mt-2">
                         {{ $message }}
                     </p>
@@ -84,7 +87,7 @@
                     required
                     >
 
-                    @error('')
+                    @error('password')
                     <p class="text-red-500 text-xs mt-2">
                         {{ $message }}
                     </p>
@@ -95,9 +98,20 @@
                     <button type="submit"
                     class="bg-blue-400 text-white rounded py-2 px-4 hover:bg-blue-500"
                     >
+
 Submit
                     </button>
                 </div>
+
+<!--                @if ($errors->any())-->
+<!--                <ul>-->
+<!--                @foreach ($errors->all() as $error)-->
+<!--                <li class="text-red-500 text-xs mt-2">-->
+<!--                    {{ $error }}-->
+<!--                </li>-->
+<!--                @endforeach-->
+<!--                </ul>-->
+<!--                @endif-->
 
             </form>
 

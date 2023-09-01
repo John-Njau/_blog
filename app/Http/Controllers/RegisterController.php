@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -15,26 +14,27 @@ class RegisterController extends Controller
 
     public function store()
     {
-
-//       return request()->all();
-
         // validate the user input
         $attributes = request()->validate([
             'name' => ['required', 'max:255'],
-            'username' => ['required', 'min:3', 'max:55'],
-            'email' => ['required', 'email', 'max:255', 'unique:users'], // unique:users is a rule
+            'username' => ['required', 'min:3', 'max:55', 'unique:users,username'],
+            'email' => ['required', 'email', 'max:255', 'unique:users,email'],
             'password' => ['required', 'min:6', 'max:255'],
         ]);
 
-        dd("success", $attributes);
+//        check the attributes
+//        return request()->all();
 //
-//        // persist the user
-//        User::create($attributes);
-//
-//        // sign the user in
-//        auth()->attempt($attributes);
+//      persist the user
+        $user = User::create($attributes);
+//fire register event
+//  TODO:      send welcome email
+
+        // sign the user in
+        auth()->login($user);
+
 //
 //        // redirect
-//        return redirect('/');
+        return redirect('/')->with('success', 'Your account has been created.');
     }
 }
