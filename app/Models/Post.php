@@ -17,7 +17,7 @@ class Post extends Model
     // protected $guarded = ['id'];
 
     // disables mass assignment entirely
-    protected $guarded = [];
+//    protected $guarded = [];
 
 //    query posts with category and author
     protected $with = ['category', 'author'];
@@ -48,6 +48,12 @@ public function scopeFilter($query, array $filters){
         )
     );
 }
+
+//comments relationship
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 
     // category relationship -- Eloquent relationship
     public function category()
