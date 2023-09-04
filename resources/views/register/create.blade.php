@@ -19,6 +19,7 @@
                            value="{{ old('name') }}"
                            placeholder="Your Name"
                            required
+                            autocomplete="name"
                     >
 
                     @error('name')
@@ -42,6 +43,7 @@
                     value="{{ old('username') }}"
                     placeholder="Your User Name"
                     required
+                           autocomplete="username"
                     >
 
                     @error('username')
@@ -64,6 +66,7 @@
                     value="{{ old('email') }}"
                     placeholder="Your Email Address"
                     required
+                            autocomplete="email"
                     >
 
                     @error('email')
@@ -85,6 +88,7 @@
                     id="password"
                     placeholder="Your Password"
                     required
+                            autocomplete="new-password"
                     >
 
                     @error('password')

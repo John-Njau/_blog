@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use Illuminate\Support\Facades\Gate;
 use Symfony\Component\HttpFoundation\Response;
 
 class PostController extends Controller
@@ -24,9 +25,17 @@ class PostController extends Controller
 //            request(['search', 'category', 'author'])
 //        )->paginate(6)->withQueryString();
 
+//        dd(Gate::allows('admin'));
+
+//        dd(request()->user()->cannot('admin'));
+
+//        $this->authorize('admin');
 
         return view('posts.index', [
-            'posts' => Post::latest()->filter(request(['search', 'category', 'author']))->paginate(6)->withQueryString(),
+            'posts' => Post::latest()
+                ->filter(request(['search', 'category', 'author']))
+                ->paginate(18)
+                ->withQueryString(),
         ]);
 
     }
@@ -40,34 +49,5 @@ class PostController extends Controller
     }
 
 
-    public function create()
-    {
-        return view('posts.create');
-    }
 
-    public function store()
-    {
-        $path = request()->file('thumbnail')->store('thumbnails');
-
-        return 'Done :' . $path;
-
-//        dd(request()->all());
-
-//        $attributes = request()->validate([
-//            'title' => 'required',
-//            'slug' => ['required','unique:posts,slug'],
-//            'excerpt' => 'required',
-//            'body' => 'required',
-//            'category_id' => ['required', 'exists:categories,id'],
-////            'slug' => 'required|unique:posts,slug',
-//        ]);
-//
-////
-//
-//        $attributes['user_id'] = auth()->id();
-//
-//        Post::create($attributes);
-//
-//        return redirect('/');
-    }
 }

@@ -21,6 +21,7 @@
                            value="{{ old('email') }}"
                            placeholder="Your Email Address"
                            required
+                           autocomplete="email"
                     >
 
                     @error('email')
@@ -43,6 +44,7 @@
                            id="password"
                            placeholder="Your Password"
                            required
+                           autocomplete="new-password"
                     >
 
 

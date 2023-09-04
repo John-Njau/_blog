@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+         User::factory(10)->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
@@ -27,15 +27,17 @@ class DatabaseSeeder extends Seeder
 //        Category::truncate();
 //        Post::truncate();
 
-        $user = User::factory()->create([
-            "name"=>"Jing Jong"
-        ]);
+//        $user = User::factory()->create([
+//            "name"=>"Jing Jong"
+//        ]);
 
 
-        Post::factory(5)->create([
-                "user_id" => $user->id
-            ]
-        );
+//        Post::factory(5)->create([
+//                "user_id" => $user->id
+//            ]
+//        );
+
+        Post::factory(10)->create();
 
 
 
