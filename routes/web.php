@@ -14,9 +14,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [PostController::class, 'index'])->name('home');
 Route::get('posts/{post:slug}', [PostController::class, 'show']);
 
-// products
-
-
 //comments
 Route::post('posts/{post:slug}/comments', [PostCommentsController::class, 'store']);
 
