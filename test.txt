@@ -1,0 +1,27 @@
+Test 1
+
+1. Create a Laravel migration to add a new column named "description" to the "products" table. - Done
+2. Write a migration method to update all existing products' descriptions to "N/A" as a default value. - Done
+3. Create a new migration to remove the "price" column from the "products" table.
+4. Implement the necessary code to ensure the removal of the "price" column does not result in data loss or errors in the application.
+5. Test the migrations by running them on a local development environment and verifying the changes in the database structure.
+
+
+Solution Steps:
+1. create a new products schema migration file using the command `php artisan make:model Product -m`
+2. migrate the schema using the command `php artisan migrate --path=/database/migrations/2023_09_05_063304_create_products_table.php`
+3. seed the database using the command `php artisan db:seed`
+4. created a new migration file to add a new column named "description" to the "products" table using the command `php artisan make:migration add_description_to_products_table`
+5. created a new migration method to update all existing products' descriptions to "N/A" as a default value `php artisan make:migration update_product_descriptions`
+6. created a new migration file to remove the "price" column from the "products" table using the command `php artisan make:migration remove_price_from_products_table`
+
+
+Test 2
+1. Create two Laravel models: "User" and "Role".
+2. Define a many-to-many relationship between the User and Role models, where a user can have multiple roles and a role can belong to multiple users.
+3. Implement methods in the User model to retrieve all roles associated with a user and vice versa.
+4. Create a migration to create the necessary pivot table for the User-Role relationship.
+5. Write a controller action that retrieves a user and displays their assigned roles in a view.
+
+
+Solution Steps
