@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+use Illuminate\Database\Eloquent\Collection; // Import the Collection class
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -36,7 +37,8 @@ protected $guarded = [];
         'password',
         'remember_token',
     ];
-    private mixed $roles;
+
+    // private mixed $roles;
 
     /**
      * The attributes that should be cast.
@@ -64,12 +66,24 @@ protected $guarded = [];
         'password' => 'hashed',
     ];
 
+    private $roles;
+
     public function roles()
     {
         return $this->belongsToMany(Role::class, 'user_role');
     }
 
-    public function hasRole($role){
-        return $this->roles->contains('name', $role);
+    public function hasRole($role)
+{
+    if ($this->roles->contains('name', $role)){
+        return true;
+    } 
+    else{
+        return false;
     }
+}
+
+    // public function hasRole($role){
+    //     return $this->roles->contains('name', $role);
+    // }
 }
