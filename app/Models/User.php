@@ -69,7 +69,7 @@ protected $guarded = [];
         return $this->belongsToMany(Role::class, 'user_role');
     }
 
-    public function getRoles(){
-        return $this->roles;
+    public function hasRole($role){
+        return $this->roles->contains('name', $role);
     }
 }
