@@ -68,6 +68,11 @@ protected $guarded = [];
 
     private $roles;
 
+    public function __construct()
+{
+    $this->roles = collect(); // Initialize roles as an empty collection
+}
+
     public function roles()
     {
         return $this->belongsToMany(Role::class, 'user_role');
@@ -75,7 +80,7 @@ protected $guarded = [];
 
     public function hasRole($role)
 {
-    if ($this->roles->contains('name', $role)){
+    if ($this->roles && $this->roles->contains('name', $role)){
         return true;
     } 
     else{
