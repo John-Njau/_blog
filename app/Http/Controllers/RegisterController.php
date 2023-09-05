@@ -31,7 +31,8 @@ class RegisterController extends Controller
 
         // assign role
         $role = Role::where('name', 'User')->first();
-        $user->assignRole($role);
+        $user->roles()->attach($role);
+
 //fire register event
 //  TODO:      send welcome email
 

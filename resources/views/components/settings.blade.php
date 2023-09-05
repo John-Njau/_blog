@@ -12,10 +12,11 @@
                         Posts</a></li>
                 <li><a href="/admin/posts/create"
                        class="{{Request::path() === 'admin/posts/create' ? 'text-blue-500' : ''}}">New Post</a></li>
-                <li><a href="/admin/categories"
-                       class="{{Request::path() === 'admin/categories' ? 'text-blue-500' : ''}}">Categories</a></li>
+<!--                <li><a href="/admin/categories"-->
+<!--                       class="{{Request::path() === 'admin/categories' ? 'text-blue-500' : ''}}">Categories</a>-->
+<!--                </li>-->
                 <li><a href="/admin/users"
-                       class="{{Request::path() === 'admin/users' ? 'text-blue-500' : ''}}">Users</a></li>
+                       class="{{Request::path() === 'admin/users' ? 'text-blue-500' : ''}}">User Management</a></li>
             </ul>
 
         </aside>
