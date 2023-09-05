@@ -78,16 +78,6 @@ protected $guarded = [];
         return $this->belongsToMany(Role::class, 'user_role');
     }
 
-    public function hasRole($role)
-{
-    if ($this->roles && $this->roles->contains('name', $role)){
-        return true;
-    } 
-    else{
-        return false;
-    }
-}
-
     // public function hasRole($role){
     //     return $this->roles->contains('name', $role);
     // }

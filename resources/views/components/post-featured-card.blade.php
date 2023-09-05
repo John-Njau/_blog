@@ -5,7 +5,15 @@
 <div class="py-6 px-5 lg:flex">
     <div class="flex-1 lg:mr-8">
         {{-- TODO --}}
-        <img src="/storage/{{$post->thumbnail}}" alt="Blog Post illustration" class="rounded-xl">
+        <div>
+            @if ($post->thumbnail)
+            <img src="/storage/{{$post->thumbnail}}" alt="Blog Post illustration" class="rounded-xl">
+    
+            @else
+            <img src="/images/illustration-3.png" alt="Blog Post illustration" class="rounded-xl">
+    
+            @endif
+        </div>
     </div>
 
     <div class="flex-1 flex flex-col justify-between">
