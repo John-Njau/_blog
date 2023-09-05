@@ -9,14 +9,6 @@ class Comment extends Model
 {
     use HasFactory;
 
-    // only allowed to fill in the php artisan tinker
-    // protected $fillable = ['title', 'excerpt', 'body', 'id'];
-
-
-//fillable fields
-//protected $guarded = [];
-
-
 //    look at conventions
     public function post()
     {

@@ -9,25 +9,12 @@ class Post extends Model
 {
     use HasFactory;
 
-    // only allowed to fill in the php artisan tinker
-    // protected $fillable = ['title', 'excerpt', 'body', 'id'];
-
-
-    // specifies which fields are not allowed to be filled in
-    // protected $guarded = ['id'];
-
-    // disables mass assignment entirely
-//    protected $guarded = [];
-
 //    query posts with category and author
     protected $with = ['category', 'author'];
 
 //    query scope
 public function scopeFilter($query, array $filters){
-//    if (request('search')) {
-//        $query->where('title', 'like', '%' . request('search') . '%')
-//            ->orWhere('body', 'like', '%' . request('search') . '%');
-//    }
+
 
     $query->when($filters['search'] ?? false, fn($query, $search) =>
         $query->where(fn($query) =>

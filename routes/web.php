@@ -10,24 +10,6 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 
-//    $response = $mailchimp->lists->getAllLists();
-//    $response = $mailchimp->lists->getList('a27ced3b82');
-//    $response = $mailchimp->lists->getListMembersInfo('a27ced3b82');
-//    $response = $mailchimp->ping->getLandingPageStats('a27ced3b82');
-
-
-//    add a new member to the list
-//    $response = $mailchimp->lists->addListMember('a27ced3b82', [
-//        'email_address' => request('email'),
-//        'status' => 'subscribed',
-//    ]);
-
-
-//    dd($response);
-
-
-//});
-
 // posts
 Route::get('/', [PostController::class, 'index'])->name('home');
 Route::get('posts/{post:slug}', [PostController::class, 'show']);
@@ -66,19 +48,8 @@ Route::middleware('can:admin')->group(function () {
 
 
 // user management admin panel
-//Route::get('admin/users', [AdminUserController::class, 'index'])->middleware('can:admin');
-//Route::get('admin/users/{user}', [AdminUserController::class, 'show'])->middleware('can:admin');
-
-
 Route::get('admin/users', [UserController::class, 'index'])->middleware('can:admin');
-Route::get('admin/users/create', [UserController::class, 'create'])->middleware('can:admin');
-Route::post('admin/users', [UserController::class, 'store'])->middleware('can:admin');
 Route::put('admin/users/{user}', [UserController::class, 'update'])->middleware('can:admin');
 Route::delete('admin/users/{user}', [UserController::class, 'destroy'])->middleware('can:admin');
 Route::get('admin/users/{user}/edit', [UserController::class, 'edit'])->middleware('can:admin');
 
-//Route::get('authors/{author:username}', function (User $author) {
-//    return view('posts.index', [
-//        'posts' => $author->posts,
-//    ]);
-//});

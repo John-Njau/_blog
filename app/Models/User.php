@@ -25,7 +25,7 @@ class User extends Authenticatable
 //        'password',
 //    ];
 
-protected $guarded = [];
+    protected $guarded = [];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -69,16 +69,12 @@ protected $guarded = [];
     private $roles;
 
     public function __construct()
-{
-    $this->roles = collect(); // Initialize roles as an empty collection
-}
+    {
+        $this->roles = collect(); // Initialize roles as an empty collection
+    }
 
     public function roles()
     {
         return $this->belongsToMany(Role::class, 'user_role');
     }
-
-    // public function hasRole($role){
-    //     return $this->roles->contains('name', $role);
-    // }
 }

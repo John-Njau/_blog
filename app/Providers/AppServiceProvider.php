@@ -46,13 +46,6 @@ class AppServiceProvider extends ServiceProvider
             return $user->username === 'john' || $user->roles->contains('name', 'Admin') || $user->roles->contains('name', 'Moderator');
         });
 
-//        Gate::define('admin', function (User $user) {
-//            return $user->hasRole('Moderator');
-//        });
-//
-//      Gate::define('admin', function (User $user) {
-//            return $user->hasRole('Admin');
-//        });
 
         Blade::if('admin', function () {
             return request()->user()?->can('admin');
