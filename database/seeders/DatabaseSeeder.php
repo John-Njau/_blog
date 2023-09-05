@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\Category;
+use App\Models\Role;
 use App\Models\User;
 use App\Models\Post;
 use App\Models\Product;
@@ -21,6 +22,18 @@ class DatabaseSeeder extends Seeder
         Product::factory(10)->create();
 
         User::factory(10)->create();
+
+        Role::factory()->create(['name' => 'User']);
+        Role::factory()->create(['name' => 'Admin']);
+        Role::factory()->create(['name' => 'Moderator']);
+
+//        user_roles table seeding
+        User::find(1)->roles()->attach(1);
+        User::find(2)->roles()->attach(2);
+        User::find(3)->roles()->attach(3);
+        User::find(3)->roles()->attach(2);
+        User::find(4)->roles()->attach(1);
+        User::find(4)->roles()->attach(3);
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',

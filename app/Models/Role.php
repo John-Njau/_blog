@@ -1,4 +1,3 @@
-
 <?php
 
 namespace App\Models;
@@ -13,11 +12,11 @@ class Role extends Model
     use HasFactory;
 
     public function users(){
-        return $this->belongsToMany(User::class)->withTimestamps();
+        return $this->belongsToMany(User::class,  'user_role');
     }
 
 
     public function getUsers(){
-        return $this->users()->get();
+        return $this->users;
     }
 }

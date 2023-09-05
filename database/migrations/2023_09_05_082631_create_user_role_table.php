@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('products', function (Blueprint $table) {
-            //
-            $table->dropColumn('price');
+        Schema::create('user_role', function (Blueprint $table) {
+        $table->id();
+        $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+        $table->foreignId('role_id')->constrained()->cascadeOnDelete();
+        $table->timestamps();
         });
     }
 
@@ -22,9 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('products', function (Blueprint $table) {
-            //
-            $table->decimal('price', 10, 2);
-        });
+        Schema::dropIfExists('user_role');
     }
 };

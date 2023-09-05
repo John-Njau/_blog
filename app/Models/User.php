@@ -36,6 +36,7 @@ protected $guarded = [];
         'password',
         'remember_token',
     ];
+    private mixed $roles;
 
     /**
      * The attributes that should be cast.
@@ -65,10 +66,10 @@ protected $guarded = [];
 
     public function roles()
     {
-        return $this->belongsToMany(Role::class);
+        return $this->belongsToMany(Role::class, 'user_role');
     }
 
     public function getRoles(){
-        return $this->roles->pluck('name')->implode(' ');
+        return $this->roles;
     }
 }

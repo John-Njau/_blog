@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Role;
 
 class RegisterController extends Controller
 {
@@ -27,6 +28,10 @@ class RegisterController extends Controller
 //
 //      persist the user
         $user = User::create($attributes);
+
+        // assign role
+        $role = Role::where('name', 'User')->first();
+        $user->assignRole($role);
 //fire register event
 //  TODO:      send welcome email
 

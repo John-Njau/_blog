@@ -25,3 +25,44 @@ Test 2
 
 
 Solution Steps
+1. Create a role table using `php artisan make:model Role -mfc`
+2. create a user_role pivot table with the existing users table to the created roles table
+3. Seed the user roles data
+4. create methods to retrieve roles from User and Role Model
+5. Migration - php artisan make:migration create_user_role_table
+6. Edit userController to assign User role by default on registration
+
+
+
+Migration to remove price column from products table
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::table('products', function (Blueprint $table) {
+            //
+            $table->dropColumn('price');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::table('products', function (Blueprint $table) {
+            //
+            $table->decimal('price', 10, 2);
+        });
+    }
+};
+
