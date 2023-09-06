@@ -35,12 +35,6 @@ Route::post('newsletter', NewsletterController::class);
 //Admin
 Route::middleware('can:admin')->group(function () {
     Route::resource('admin/posts', AdminPostController::class)->except('show');
-//    Route::get('admin/posts', [AdminPostController::class, 'index']);
-//    Route::get('admin/posts/create', [AdminPostController::class, 'create']);
-//    Route::post('admin/posts', [AdminPostController::class, 'store']);
-//    Route::patch('admin/posts/{post}', [AdminPostController::class, 'update']);
-//    Route::delete('admin/posts/{post}', [AdminPostController::class, 'destroy']);
-//    Route::get('admin/posts/{post}/edit', [AdminPostController::class, 'edit']);
 });
 
 
