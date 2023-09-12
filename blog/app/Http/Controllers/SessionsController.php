@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpFoundation\Response;
 
 class SessionsController extends Controller
 {
@@ -31,6 +32,12 @@ class SessionsController extends Controller
 
         session()->regenerate();
 
+        // Return user data after successful login
+//        return response()->json([
+//            'message' => 'Welcome Back!',
+//            'user' => auth()->user(),
+//        ]);
+
         return redirect('/')->with('success', 'Welcome Back!');
 
 //        throw ValidationException::withMessages([
@@ -45,8 +52,47 @@ class SessionsController extends Controller
 //        dd('logout');
         auth()->logout();
 
+//        return response()->json(['message' => 'Goodbye!']);
+
         return redirect('/')->with('success', 'Goodbye!');
     }
 
+//    apis
+    public function loginUserEndpoint()
+    {
+        // validate the request
+        $attributes = request()->validate([
+            'email' => 'required|exists:users,email',
+            'password' => 'required|min:6|max:255'
+        ]);
+
+        // attempt to authenticate and log in the user
+        if (!auth()->attempt($attributes)) {
+            return response()->json(['success' => false, 'message' => 'Your provided credentials could not be verified.'], 401);
+        }
+
+        session()->regenerate();
+
+//        dd(auth()->user());
+
+        // Return user data after successful login
+        return response()->json([
+            'message' => 'Welcome Back!',
+            'user' => auth()->user(),
+        ], Response::HTTP_OK);
+    }
+
+
+
+
+
+    public function logoutUserEndpoint()
+    {
+        auth()->logout();
+
+        return response()->json([
+            'message' => 'Goodbye!',
+        ], Response::HTTP_OK);
+    }
 
 }
