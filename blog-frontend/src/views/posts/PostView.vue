@@ -5,7 +5,7 @@ import axios from 'axios'
 import { ref, onMounted, computed } from 'vue'
 import { useRoute } from 'vue-router'
 
-axios.defaults.baseURL = 'http://192.168.9.21:8000'
+axios.defaults.baseURL = 'http://127.0.0.1:8000'
 
 const route = useRoute()
 const post = ref(null)

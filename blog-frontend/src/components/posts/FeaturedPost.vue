@@ -1,5 +1,8 @@
 <script setup >
 import { ref, defineProps } from 'vue';
+// import { useDateStore } from '@/store/dateFormat';
+
+// const dateStore = useDateStore();
 
 const { post } = defineProps(['post']);
 
@@ -46,8 +49,13 @@ const formatDate = (dateString) => {
       <div class="flex-1 flex flex-col justify-between">
         <header class="mt-8 lg:mt-0">
           <div class="space-x-2">
-            <x-category-button :category="post.category" />
-          </div>
+                    <a
+                      :href="'/categories/' + post.category.slug"
+                      class="px-3 py-1 border border-blue-300 rounded-full text-blue-300 text-xs uppercase font-semibold"
+                      style="font-size: 10px"
+                      >{{ post.category.name }}</a
+                    >
+                  </div>
 
           <div class="mt-4">
             <h1 class="text-3xl">
