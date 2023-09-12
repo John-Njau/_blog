@@ -21,9 +21,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//    return $request->user();
-//});
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
 
 //registration
 Route::post('register', [RegisterController::class, 'registerUserEndpoint']);
@@ -31,6 +31,10 @@ Route::post('register', [RegisterController::class, 'registerUserEndpoint']);
 // Login routes
 Route::post('login', [SessionsController::class, 'loginUserEndpoint']);
 Route::post('logout', [SessionsController::class, 'logoutUserEndpoint']);
+
+//users
+Route::get('users', [UserController::class, 'getUsers']);
+Route::get('users/{user:id}', [UserController::class, 'getSingleUser']);
 
 // API route for newsletter subscription
 Route::post('newsletter', NewsletterController::class);

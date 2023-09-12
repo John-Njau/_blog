@@ -60,5 +60,19 @@ class UserController extends Controller
         return back();
     }
 
+//    api
+public function getUsers()
+{
+    $users = User::with('roles')->get();
+    return response()->json($users);
+
+}
+
+public function getSingleUser($id)
+{
+    $user = User::with('roles')->find($id);
+    return response()->json($user);
+}
+
 
 }
