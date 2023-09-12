@@ -5,6 +5,9 @@ import axios from 'axios'
 import { ref, onMounted, computed } from 'vue'
 import { useRoute } from 'vue-router'
 
+import PostComments from '../../components/posts/PostComments.vue'
+import CommentComp from '../../components/posts/CommentComp.vue'
+
 axios.defaults.baseURL = 'http://127.0.0.1:8000'
 
 const route = useRoute()
@@ -16,7 +19,7 @@ const fetchPost = async () => {
   try {
     const response = await axios.get(`/api/posts/${slug.value}`)
     post.value = response.data
-    console.log(post.value);
+    console.log(post.value)
   } catch (error) {
     console.error('Error fetching post:', error)
   }
@@ -26,8 +29,7 @@ onMounted(() => {
   fetchPost()
 })
 
-
-console.log(post.value);
+console.log(post.value)
 
 const formatDate = (dateString) => {
   const currentDate = new Date()
@@ -120,15 +122,12 @@ const formatDate = (dateString) => {
 
           <!-- Comments -->
           <section class="col-span-8 col-start-5 mt-10 space-y-6">
-            <!-- Include your comment form component here -->
-            <!-- For each comment -->
-            <div v-for="comment in post.comments" :key="comment.id">
-              <PostComment :comment="comment" />
-            </div>
+            <PostComments />
           </section>
         </article>
       </main>
     </section>
+
     <Footer />
   </main>
 </template>
