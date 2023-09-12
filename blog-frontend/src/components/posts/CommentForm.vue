@@ -1,5 +1,5 @@
 <script setup>
-import { ref, defineProps } from 'vue'
+import { ref } from 'vue'
 
 import { useRoute } from 'vue-router'
 
@@ -33,7 +33,6 @@ const post = ref({
 //   slug: ''
 // })
 
-
 const baseURL = 'http://127.0.0.1:8000/api'
 
 const formErrors = ref({
@@ -55,11 +54,11 @@ const submitComment = async () => {
 
   try {
     const response = await axios.post(baseURL + `/posts/${route.params.slug}/comments`, commentData)
-    console.log("slug", route.params.slug);
+    console.log('slug', route.params.slug)
     console.log(response.data)
     if (response.status === 200) {
-        // router.push({ name: 'posts' })
-        window.location.reload()
+      // router.push({ name: 'posts' })
+      window.location.reload()
     } else {
       console.error('Unexpected response status:', response.status)
     }
@@ -83,7 +82,7 @@ const submitComment = async () => {
     >
       <header class="flex items-center">
         <img
-          :src="`https://i.pravatar.cc/60?u=${currentUser.id}`"
+          :src="`https://i.pravatar.cc/60?u=${currentUser}`"
           width="40"
           height="40"
           class="rounded-xl"

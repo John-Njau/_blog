@@ -2,7 +2,8 @@
 import { defineProps } from 'vue'
 
 const props = defineProps({
-  comment: Object
+  comment: Object,
+  authorName: String
 })
 
 const formatTimestamp = (timestamp) => {
@@ -10,6 +11,7 @@ const formatTimestamp = (timestamp) => {
   const createdDate = new Date(timestamp)
   const diffInMinutes = Math.floor((now - createdDate) / 60000)
   const diffInHours = Math.floor(diffInMinutes / 60)
+
 
   if (diffInMinutes < 60) {
     return `${diffInMinutes} minutes ago`
@@ -40,8 +42,8 @@ const formatTimestamp = (timestamp) => {
     </div>
     <div>
       <header class="mb-4">
-        <h3 class="font-bold">{{ props.comment.user_id }}</h3>
-        <!-- <h3 class="font-bold">{{ authorName }}</h3> -->
+        <!-- <h3 class="font-bold">{{ props.comment.user_id }}</h3> -->
+        <h3 class="font-bold">{{ authorName }}</h3>
         <p class="text-xs">
           Posted
           <time>{{ formatTimestamp(comment.created_at) }}</time>

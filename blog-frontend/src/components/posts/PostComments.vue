@@ -12,7 +12,8 @@ const route = useRoute()
 // posts/{post:slug}/comments
 
 const postComments = ref([])
-const authorName = ref('')
+// const authorName = ref('')
+
 
 // fetch the post slug from the route params
 const post = ref({
@@ -45,9 +46,15 @@ onMounted(() => {
   fetchUserById()
 })
 
+const getAuthorName = async (userId) => {
+  const user = await fetchUserById(userId)
+  console.log('user', user.name);
+  return user ? user.name : 'Unknown'
+}
 
+const authorName = getAuthorName()
 
-console.log("postComments", fetchPostComments());
+console.log('postComments', fetchPostComments())
 </script>
 
 <template>
@@ -56,7 +63,7 @@ console.log("postComments", fetchPostComments());
     <CommentForm :post="post" />
     <!-- Other comments -->
     <div v-for="comment in postComments" :key="comment.id">
-      <CommentComp :comment="comment" />
+      <CommentComp :comment="comment" :authorName="authorName"  />
     </div>
   </section>
 </template>

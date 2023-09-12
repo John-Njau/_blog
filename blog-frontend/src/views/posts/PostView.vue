@@ -6,7 +6,6 @@ import { ref, onMounted, computed } from 'vue'
 import { useRoute } from 'vue-router'
 
 import PostComments from '../../components/posts/PostComments.vue'
-import CommentComp from '../../components/posts/CommentComp.vue'
 
 axios.defaults.baseURL = 'http://127.0.0.1:8000'
 

@@ -49,6 +49,7 @@ const submitForm = async () => {
 </script>
 
 <template>
+  <main>
   <NavBar />
   <section class="px-6 py-8">
     <main class="max-w-lg mx-auto mt-10 bg-gray-100 border-gray-200 p-6 rounded-xl">
@@ -135,6 +136,7 @@ const submitForm = async () => {
     </main>
   </section>
   <Footer />
+</main>
 </template>
   
  

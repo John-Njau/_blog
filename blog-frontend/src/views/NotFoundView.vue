@@ -1,17 +1,21 @@
 <template>
+  <main>
+    <NavBar />
     <div class="wrapper">
-        <h1>404</h1>
-        <p>Page not found</p>
+      <h1>404</h1>
+      <p>Page not found</p>
+      <button>
         <router-link to="/">Go to Home</router-link>
+      </button>
     </div>
+    <Footer />
+  </main>
 </template>
 
-<script>
-export default {
-
-}
+<script setup>
+import NavBar from '../components/NavBar.vue'
+import Footer from '../components/FooterComp.vue'
 </script>
 
 <style>
-
 </style>
