@@ -47,7 +47,7 @@ class PostCommentsController
     public function createPostComment(Post $post)
     {
         $comment = $post->comments()->create([
-            'user_id' => request()->user()->id,
+            'user_id' => request('user_id'),
             'body' => request('body')
         ]);
 

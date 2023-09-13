@@ -25,7 +25,7 @@ class PostController extends Controller
     public function allPosts()
     {
         $posts = Post::latest()
-            ->filter(request(['search', 'category', 'author']))
+            ->filter(request(['search', 'category', 'author', 'comments']))
             ->paginate(18)
             ->withQueryString();
 

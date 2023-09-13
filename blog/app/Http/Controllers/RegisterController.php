@@ -48,6 +48,11 @@ class RegisterController extends Controller
 
     }
 
+    public function TestVueRegister()
+    {
+        return view('register.test');
+    }
+
     public function registerUserEndpoint(Request $request)
     {
         // Validate the user input

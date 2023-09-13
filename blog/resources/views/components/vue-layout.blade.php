@@ -25,7 +25,13 @@
 
 </style>
 
-<body style="font-family: Open Sans, sans-serif">
+<body style="font-family: Open Sans, sans-serif" id="app" >
+    <section class="px-6 py-8">
+    {{$slot}}
+    </section>
+</body>
+
+{{-- <body style="font-family: Open Sans, sans-serif">
     <section class="px-6 py-8">
         <nav class="md:flex md:justify-between md:items-center">
             <div>
@@ -109,4 +115,4 @@
 
     <x-flash />
 
-</body>
+</body> --}}
