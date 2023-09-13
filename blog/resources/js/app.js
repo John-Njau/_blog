@@ -6,12 +6,13 @@
 
 import './bootstrap';
 import { createApp } from 'vue';
+// import { ZiggyVue } from 'ziggy';
+// import { Ziggy } from './ziggy';
 
 // components
-import ExampleComponent from './components/ExampleComponent.vue';
-import RegisterComponent from './components/RegisterComponent.vue';
-import UserComponent from './components/UserComponent.vue';
-import ExampleCounter from './components/ExampleCounter.vue';
+import RegisterComponent from './components/auth/RegisterComponent.vue';
+import LoginComponent from './components/auth/LoginComponent.vue';
+
 
 /**
  * Next, we will create a fresh Vue application instance. You may then begin
@@ -22,11 +23,9 @@ import ExampleCounter from './components/ExampleCounter.vue';
 const app = createApp({});
 
 
-
-app.component('example-component', ExampleComponent);
 app.component('register-component', RegisterComponent);
-app.component('user-component', UserComponent);
-app.component('example-counter', ExampleCounter);
+app.component('login-component', LoginComponent);
+
 
 /**
  * The following block of code may be used to automatically register your
@@ -46,5 +45,5 @@ app.component('example-counter', ExampleCounter);
  * scaffolding. Otherwise, you will need to add an element yourself.
  */
 
+// app.use(ZiggyVue, Ziggy);
 app.mount('#app');
-app.mount('#users');
