@@ -2,8 +2,8 @@
 import axios from "axios";
 import { useRouter } from "vue-router";
 
-import NavBar from "./layout/NavBar.vue";
-import Footer from "./layout/FooterComp.vue";
+import NavBar from "../layout/NavBar.vue";
+import Footer from "../layout/FooterComp.vue";
 
 const formData = {
   name: "",
