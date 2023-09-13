@@ -6,7 +6,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 <script src="//unpkg.com/alpinejs" defer></script>
 {{-- refererence to vue --}}
-@routes
 @vite(['resources/css/app.css', 'resources/js/app.js'])
 
 
