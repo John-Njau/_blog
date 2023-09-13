@@ -21,8 +21,6 @@ const formErrors = {
 
 const router = useRouter();
 
-const loginRoute = "{{ route('login') }}";
-console.log("loginRoute", loginRoute);
 
 const baseURL = `${window.location.origin}/api/register`;
 
@@ -34,12 +32,7 @@ const submitForm = async () => {
 
     if (response.status === 201) {
       console.log(response.data);
-
-      // Redirect to the login blade in laravel (resources/views/sessions/create.blade.php)
-      // Call this function to perform the redirection
-      // open the login blade
-      // window.location.href = "http://127.0.0.1:8000/login";
-      router.push(loginRoute);
+      router.push({ name: "login" });
     } else {
       console.error("Unexpected response status:", response.status);
     }

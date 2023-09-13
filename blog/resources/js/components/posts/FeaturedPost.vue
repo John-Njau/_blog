@@ -1,8 +1,6 @@
 <script setup >
 import { defineProps } from 'vue';
-// import { useDateStore } from '@/store/dateFormat';
 
-// const dateStore = useDateStore();
 
 const { post } = defineProps(['post']);
 
@@ -63,9 +61,6 @@ const formatDate = (dateString) => {
             </h1>
 
             <span class="mt-2 block text-gray-400 text-xs">
-              <!-- posted 10 mins ago -->
-              <!-- if greater than 60 mins posted X hours ago -->
-              <!-- if greater than 24 hours ago, posted how many days ago -->
               Published <time>{{ formatDate(post.created_at) }}</time>
             </span>
           </div>

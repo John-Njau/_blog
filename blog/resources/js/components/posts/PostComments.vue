@@ -9,7 +9,6 @@ import { ref, onMounted } from 'vue'
 
 const baseURL = 'http://127.0.0.1:8000/api'
 const route = useRoute()
-// posts/{post:slug}/comments
 
 const postComments = ref([])
 // const authorName = ref('')
@@ -19,7 +18,6 @@ const postComments = ref([])
 const post = ref({
   slug: ''
 })
-// ensure the comments prop is defined and is an array
 
 const fetchPostComments = async () => {
   try {
@@ -33,11 +31,11 @@ const fetchPostComments = async () => {
 
 async function fetchUserById(userId) {
   try {
-    const response = await axios.get(baseURL + `/users/${userId}`) // Replace with your API endpoint
-    return response.data // Assuming the response contains user details, adjust as needed
+    const response = await axios.get(baseURL + `/users/${userId}`) 
+    return response.data 
   } catch (error) {
     console.error('Error fetching user:', error)
-    return null // Return null or handle the error as needed
+    return null 
   }
 }
 

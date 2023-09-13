@@ -64,13 +64,6 @@ const formatDate = (dateString) => {
   }
 }
 
-// filtered post array without the first post
-// const otherPosts = posts.value.filter((post, index) => index !== 0)
-// console.log('Other posts:', otherPosts)
-
-// const postId = 45
-// const postById = posts.value.find(post => post.id === postId)
-// console.log("Post by ID:", postById)
 </script>
 <template>
   <main style="font-family: Open Sans, sans-serif">
@@ -218,22 +211,6 @@ const formatDate = (dateString) => {
       <Footer />
     </section>
   </main>
-  <!-- <div>
-    <NavBar />
-
-    <header>
-      <div>
-
-        <nav>
-          <RouterLink to="/">Landing</RouterLink>
-          <RouterLink to="/home">Home</RouterLink>
-          <RouterLink to="/about">About</RouterLink>
-          <RouterLink to="/contact">Contact</RouterLink>
-        </nav>
-      </div>
-    </header>
-    <Footer />
-  </div> -->
 </template>
 
 
