@@ -9,9 +9,16 @@ import { createApp } from 'vue';
 // import { ZiggyVue } from 'ziggy';
 // import { Ziggy } from './ziggy';
 
+
+// app.vue
+import App from './App.vue';
+import router from './router'
+
+
 // components
-import RegisterComponent from './components/auth/RegisterComponent.vue';
-import LoginComponent from './components/auth/LoginComponent.vue';
+// import RegisterComponent from './components/auth/RegisterComponent.vue';
+// import LoginComponent from './components/auth/LoginComponent.vue';
+
 
 
 /**
@@ -23,8 +30,9 @@ import LoginComponent from './components/auth/LoginComponent.vue';
 const app = createApp({});
 
 
-app.component('register-component', RegisterComponent);
-app.component('login-component', LoginComponent);
+// app.component('register-component', RegisterComponent);
+// app.component('login-component', LoginComponent);
+app.component('vue-app', App);
 
 
 /**
@@ -46,4 +54,5 @@ app.component('login-component', LoginComponent);
  */
 
 // app.use(ZiggyVue, Ziggy);
+app.use(router)
 app.mount('#app');

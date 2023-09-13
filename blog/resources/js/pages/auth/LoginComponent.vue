@@ -2,8 +2,8 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import axios from 'axios'
-import NavBar from "../layout/NavBar.vue";
-import Footer from "../layout/FooterComp.vue";
+import NavBar from "../../components/layout/NavBar.vue";
+import Footer from "../../components/layout/FooterComp.vue";
 
 const formData = ref({
   email: '',

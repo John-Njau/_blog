@@ -2,8 +2,8 @@
 import axios from "axios";
 import { useRouter } from "vue-router";
 
-import NavBar from "../layout/NavBar.vue";
-import Footer from "../layout/FooterComp.vue";
+import NavBar from "../../components/layout/NavBar.vue";
+import Footer from "../../components/layout/FooterComp.vue";
 
 const formData = {
   name: "",
@@ -21,6 +21,8 @@ const formErrors = {
 
 const router = useRouter();
 
+const loginRoute = "{{ route('login') }}";
+console.log("loginRoute", loginRoute);
 
 const baseURL = `${window.location.origin}/api/register`;
 
@@ -36,7 +38,8 @@ const submitForm = async () => {
       // Redirect to the login blade in laravel (resources/views/sessions/create.blade.php)
       // Call this function to perform the redirection
       // open the login blade
-      window.location.href = "http://127.0.0.1:8000/login";
+      // window.location.href = "http://127.0.0.1:8000/login";
+      router.push(loginRoute);
     } else {
       console.error("Unexpected response status:", response.status);
     }
