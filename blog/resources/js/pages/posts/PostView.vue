@@ -7,7 +7,7 @@ import { useRoute } from 'vue-router'
 
 import PostComments from '../../components/posts/PostComments.vue'
 
-axios.defaults.baseURL = 'http://127.0.0.1:8000'
+axios.defaults.baseURL = 'http://127.0.0.1:8000/api'
 
 const route = useRoute()
 const post = ref(null)
@@ -16,7 +16,7 @@ const slug = computed(() => route.params.slug)
 // Fetch post data based on the route parameter (slug)
 const fetchPost = async () => {
   try {
-    const response = await axios.get(`/api/posts/${slug.value}`)
+    const response = await axios.get(`/posts/${slug.value}`)
     post.value = response.data
     console.log(post.value)
   } catch (error) {
@@ -54,8 +54,7 @@ const formatDate = (dateString) => {
 
 <template>
   <main>
-    <Navbar />
-    <!-- individual post -->
+    <NavBar />
     <section class="px-6 py-8">
       <main class="max-w-6xl mx-auto mt-10 lg:mt-20 space-y-6">
         <article v-if="post" class="max-w-4xl mx-auto lg:grid lg:grid-cols-12 gap-x-10">
@@ -103,7 +102,7 @@ const formatDate = (dateString) => {
               </router-link>
               <div class="space-x-2">
                 <a
-                  :href="'/categories/' + post.category.slug"
+                  :href="'/?category=' + post.category.slug"
                   class="px-3 py-1 border border-blue-300 rounded-full text-blue-300 text-xs uppercase font-semibold"
                   style="font-size: 10px"
                   >{{ post.category.name }}</a

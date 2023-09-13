@@ -1,19 +1,21 @@
 import { createRouter, createWebHistory } from "vue-router";
-import PostView from '../pages/posts/PostView.vue'
-import PostsView from '../pages/posts/PostsView.vue'
-import NotFoundView from '../pages/NotFoundView.vue'
+import PostView from "../pages/posts/PostView.vue";
+import PostsView from "../pages/posts/PostsView.vue";
+import PostsByCategoryView from "../pages/posts/PostsByCategoryView.vue";
 
+import NotFoundView from "../pages/NotFoundView.vue";
 
-import RegisterView from "../pages/auth/RegisterComponent.vue";
-import LoginView from "../pages/auth/LoginComponent.vue";
+import RegisterView from "../pages/auth/RegisterPage.vue";
+import LoginView from "../pages/auth/LoginPage.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
         {
-          path: '/',
-          name: 'posts',
-          component: PostsView
+            path: "/",
+            name: "posts",
+            component: PostsView,
+            props: (route) => ({ category: route.query.category }),
         },
         {
             path: "/register",
@@ -21,20 +23,20 @@ const router = createRouter({
             component: RegisterView,
         },
         {
-          path: '/login',
-          name: 'login',
-          component:  LoginView
+            path: "/login",
+            name: "login",
+            component: LoginView,
         },
         {
-          path: '/posts/:slug',
-          name: 'post',
-          component: PostView
+            path: "/posts/:slug",
+            name: "post",
+            component: PostView,
         },
         {
-          path: '/:pathMatch(.*)*',
-          name: 'not-found',
-          component: NotFoundView
-        }
+            path: "/:pathMatch(.*)*",
+            name: "not-found",
+            component: NotFoundView,
+        },
     ],
 });
 

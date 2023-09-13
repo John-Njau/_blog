@@ -1,69 +1,81 @@
 <script setup>
 import NavBar from "../../components/layout/NavBar.vue";
 import Footer from "../../components/layout/FooterComp.vue";
-import FeaturedPost from '../../components/posts/FeaturedPost.vue'
+import FeaturedPost from "../../components/posts/FeaturedPost.vue";
 
 // const $route = useRoute()
 
 // use axios to fetch posts
-import axios from 'axios'
-import { ref, onMounted } from 'vue'
+import axios from "axios";
+import { ref, onMounted } from "vue";
 
-const posts = ref([])
-let featuredPost = null
+const posts = ref([]);
+let featuredPost = null;
 
 // Fetch posts
 const fetchPosts = async () => {
   try {
-    const response = await axios.get('/api/posts')
-    posts.value = response.data.data
+    const response = await axios.get("/api/posts");
+    posts.value = response.data.data;
 
     if (posts.value.length > 0) {
-      featuredPost = posts.value[0]
+      featuredPost = posts.value[0];
 
-      console.log('Featured', featuredPost)
+      console.log("Featured", featuredPost);
     }
 
-    console.log(posts.value)
+    console.log(posts.value);
   } catch (error) {
-    console.error('Error fetching posts:', error)
+    console.error("Error fetching posts:", error);
   }
-}
+};
 
 // other posts should exclude the first post as it already in the featured card
 // const otherPosts = ref([])
 
+const categories = [
+  {
+    name: "Personal",
+    url: "/categories/personal",
+  },
+  {
+    name: "Business",
+    url: "/categories/business",
+  },
+];
+
+const selectedCategory = "";
+
 // fetch posts on component mount
 onMounted(() => {
-  fetchPosts()
-})
+  fetchPosts();
+});
 
-axios.defaults.baseURL = 'http://127.0.0.1:8000'
+axios.defaults.baseURL = "http://127.0.0.1:8000";
 
-fetchPosts()
-console.log(posts.value)
+fetchPosts();
+console.log(posts.value);
 
 const formatDate = (dateString) => {
-  const currentDate = new Date()
-  const postDate = new Date(dateString)
+  const currentDate = new Date();
+  const postDate = new Date(dateString);
 
-  const timeDifference = currentDate - postDate
-  const seconds = Math.floor(timeDifference / 1000)
-  const minutes = Math.floor(seconds / 60)
-  const hours = Math.floor(minutes / 60)
-  const days = Math.floor(hours / 24)
+  const timeDifference = currentDate - postDate;
+  const seconds = Math.floor(timeDifference / 1000);
+  const minutes = Math.floor(seconds / 60);
+  const hours = Math.floor(minutes / 60);
+  const days = Math.floor(hours / 24);
 
   if (days > 0) {
-    return `${days} day${days > 1 ? 's' : ''} ago`
+    return `${days} day${days > 1 ? "s" : ""} ago`;
   } else if (hours > 0) {
-    return `${hours} hour${hours > 1 ? 's' : ''} ago`
+    return `${hours} hour${hours > 1 ? "s" : ""} ago`;
   } else if (minutes > 0) {
-    return `${minutes} minute${minutes > 1 ? 's' : ''} ago`
+    return `${minutes} minute${minutes > 1 ? "s" : ""} ago`;
   } else {
-    return `${seconds} second${seconds !== 1 ? 's' : ''} ago`
+    return `${seconds} second${seconds !== 1 ? "s" : ""} ago`;
   }
-}
-
+};
 </script>
 <template>
   <main style="font-family: Open Sans, sans-serif">
@@ -76,23 +88,33 @@ const formatDate = (dateString) => {
         </h1>
 
         <h2 class="inline-flex mt-2">
-          By Lary Laracore <img src="/images/lary-head.svg" alt="Head of Lary the mascot" />
+          By John Njau
+          <img src="/images/lary-head.svg" alt="Head of Lary the mascot" />
         </h2>
 
         <p class="text-sm mt-14">
-          Another year. Another update. We're refreshing the popular Laravel series with new
-          content. I'm going to keep you guys up to speed with what's going on!
+          Another year. Another update. We're refreshing the popular Laravel
+          series with new content. I'm going to keep you guys up to speed with
+          what's going on!
         </p>
 
         <div class="space-y-2 lg:space-y-0 lg:space-x-4 mt-8">
           <!--  Category -->
-          <div class="relative flex lg:inline-flex items-center bg-gray-100 rounded-xl">
+          <div
+            class="relative flex lg:inline-flex items-center bg-gray-100 rounded-xl"
+          >
             <select
               class="flex-1 appearance-none bg-transparent py-2 pl-3 pr-9 text-sm font-semibold"
+              v-model="selectedCategory"
             >
               <option value="category" disabled selected>Category</option>
-              <option value="personal">Personal</option>
-              <option value="business">Business</option>
+              <option
+                v-for="category in categories"
+                :key="category.name"
+                :value="category.name"
+              >
+                {{ category.name }}
+              </option>
             </select>
 
             <svg
@@ -117,9 +139,10 @@ const formatDate = (dateString) => {
             </svg>
           </div>
 
-
           <!-- Search -->
-          <div class="relative flex lg:inline-flex items-center bg-gray-100 rounded-xl px-3 py-2">
+          <div
+            class="relative flex lg:inline-flex items-center bg-gray-100 rounded-xl px-3 py-2"
+          >
             <form method="GET" action="#">
               <input
                 type="text"
@@ -163,7 +186,7 @@ const formatDate = (dateString) => {
                 <header>
                   <div class="space-x-2">
                     <a
-                      :href="'/categories/' + post.category.slug"
+                      :href="'/?category=' + post.category.slug"
                       class="px-3 py-1 border border-blue-300 rounded-full text-blue-300 text-xs uppercase font-semibold"
                       style="font-size: 10px"
                       >{{ post.category.name }}</a
