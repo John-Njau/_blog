@@ -1,1 +1,1 @@
-**Laracasts blog converted to a Vue 3 frontend**
+**Laracasts blog blades converted to a Vue 3 components frontend **
