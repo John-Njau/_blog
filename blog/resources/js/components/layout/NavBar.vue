@@ -3,7 +3,10 @@
 import axios from "axios";
 import { ref, computed } from "vue";
 import { useRoute } from "vue-router";
+import { useAuthStore } from "../../store/auth";
 
+
+const authStore = useAuthStore();
 
 // receive admin prop from laravel
 // const { isAdmin } = defineProps(["isAdmin"]);
@@ -27,10 +30,7 @@ const isNewPostActive = computed(() => {
 });
 
 const logout = () => {
-  localStorage.removeItem("user_id");
-  isAuthenticated.value = false;
-  currentUser.value = null;
-  window.location.href = "/";
+  authStore.logout();
 };
 
 // Implement authentication logic here and update isAuthenticated and currentUser accordingly.

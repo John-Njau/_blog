@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
-import { useRouter } from "vue-router";
 import axios from "axios";
+import { useRouter } from "vue-router";
 
 export const useAuthStore = defineStore("auth", {
     state: () => ({
@@ -8,6 +8,7 @@ export const useAuthStore = defineStore("auth", {
         token: null,
         isLoggedIn: false,
         isAuthenticated: false,
+        router: null,
 
         registerFormData: {
             name: "",
@@ -97,6 +98,31 @@ export const useAuthStore = defineStore("auth", {
             }
         },
 
+        // check if user is admin
+        async isAdmin() {
+            computed(() => {
+                // Check if the currentUser is defined
+                if (currentUser.value) {
+                    // Check if 'admin' or 'moderator' role is present in the roles array
+                    const roles = currentUser.value.roles; // Assuming the roles are stored in the 'roles' property
+                    const username = currentUser.value.username;
+                    console.log("username", username);
+                    console.log("roles", roles);
+                    return (
+                        roles.some(
+                            (role) =>
+                                role.name === "Admin" ||
+                                role.name === "Moderator"
+                        ) ||
+                        username === "kimtu" ||
+                        username === "john"
+                    );
+                } else {
+                    return false;
+                }
+            });
+        },
+
         logout() {
             const router = useRouter();
 
@@ -114,7 +140,7 @@ export const useAuthStore = defineStore("auth", {
 
             // if user is authenticated, redirect to home page
             if (this.isAuthenticated) {
-                this.router.push({ name: "posts" });
+                router.push({ name: "posts" });
             }
 
             // register new user
