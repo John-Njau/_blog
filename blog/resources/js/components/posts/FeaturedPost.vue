@@ -1,32 +1,10 @@
 <script setup >
-import { defineProps } from 'vue';
+import { useDateFormatStore } from "../../store/dateFormat";
+import { defineProps } from "vue";
 
+const { post } = defineProps(["post"]);
 
-const { post } = defineProps(['post']);
-
-
-const formatDate = (dateString) => {
-  const currentDate = new Date();
-  const postDate = new Date(dateString);
-
-  const timeDifference = currentDate - postDate;
-  const seconds = Math.floor(timeDifference / 1000);
-  const minutes = Math.floor(seconds / 60);
-  const hours = Math.floor(minutes / 60);
-  const days = Math.floor(hours / 24);
-
-  if (days > 0) {
-    return `${days} day${days > 1 ? 's' : ''} ago`;
-  } else if (hours > 0) {
-    return `${hours} hour${hours > 1 ? 's' : ''} ago`;
-  } else if (minutes > 0) {
-    return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
-  } else {
-    return `${seconds} second${seconds !== 1 ? 's' : ''} ago`;
-  }
-
-};
-
+const dateFormatStore = useDateFormatStore();
 </script>
 <template>
   <article
@@ -37,7 +15,7 @@ const formatDate = (dateString) => {
       <div class="flex-1 lg:mr-8">
         <div>
           <img
-            src='/images/illustration-3.png'
+            src="/images/illustration-3.png"
             alt="Blog Post illustration"
             class="rounded-xl"
           />
@@ -47,13 +25,13 @@ const formatDate = (dateString) => {
       <div class="flex-1 flex flex-col justify-between">
         <header class="mt-8 lg:mt-0">
           <div class="space-x-2">
-                    <a
-                      :href="'/categories/' + post.category.slug"
-                      class="px-3 py-1 border border-blue-300 rounded-full text-blue-300 text-xs uppercase font-semibold"
-                      style="font-size: 10px"
-                      >{{ post.category.name }}</a
-                    >
-                  </div>
+            <a
+              :href="'/categories/' + post.category.slug"
+              class="px-3 py-1 border border-blue-300 rounded-full text-blue-300 text-xs uppercase font-semibold"
+              style="font-size: 10px"
+              >{{ post.category.name }}</a
+            >
+          </div>
 
           <div class="mt-4">
             <h1 class="text-3xl">
@@ -61,7 +39,8 @@ const formatDate = (dateString) => {
             </h1>
 
             <span class="mt-2 block text-gray-400 text-xs">
-              Published <time>{{ formatDate(post.created_at) }}</time>
+              Published
+              <time>{{ dateFormatStore.formatDate(post.created_at) }}</time>
             </span>
           </div>
         </header>
@@ -75,7 +54,9 @@ const formatDate = (dateString) => {
             <img src="/images/lary-avatar.svg" alt="Lary avatar" />
             <div class="ml-3">
               <h5 class="font-bold">
-                <a :href="'/?author=' + post.author.username">{{ post.author.name }}</a>
+                <a :href="'/?author=' + post.author.username">{{
+                  post.author.name
+                }}</a>
               </h5>
             </div>
           </div>

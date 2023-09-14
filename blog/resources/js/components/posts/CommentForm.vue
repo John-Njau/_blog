@@ -13,27 +13,17 @@ const user_id = localStorage.getItem('user_id')
 if (user_id) {
   isAuthenticated.value = true
   currentUser.value = user_id
-  // get the user data
 } else {
   isAuthenticated.value = false
   currentUser.value = null
 }
 
-// const props = defineProps({
-// //   comment: Object,
-//   post: Object
-// })
 
 const post = ref({
   slug: ''
 })
 
-// get the post slug from the route params
-// const post = ref({
-//   slug: ''
-// })
 
-const baseURL = 'http://127.0.0.1:8000/api'
 
 const formErrors = ref({
   body: ''
@@ -44,7 +34,6 @@ const comment = ref({
 })
 
 const submitComment = async () => {
-  // Implement the comment submission logic here
 
   const commentData = {
     body: comment.value.body,
@@ -53,11 +42,10 @@ const submitComment = async () => {
   }
 
   try {
-    const response = await axios.post(baseURL + `/posts/${route.params.slug}/comments`, commentData)
+    const response = await axios.post(`/api/posts/${route.params.slug}/comments`, commentData)
     console.log('slug', route.params.slug)
     console.log(response.data)
     if (response.status === 200) {
-      // router.push({ name: 'posts' })
       window.location.reload()
     } else {
       console.error('Unexpected response status:', response.status)

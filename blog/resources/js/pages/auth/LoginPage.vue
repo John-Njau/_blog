@@ -16,7 +16,6 @@ const formErrors = ref({
 });
 
 
-const baseURL = "http://127.0.0.1:8000/api";
 
 const router = useRouter();
 
@@ -24,7 +23,7 @@ const router = useRouter();
 const submitForm = async () => {
   try {
     // Send a POST request to register the user
-    const response = await axios.post(baseURL + "/login", formData.value);
+    const response = await axios.post("/api/login", formData.value);
 
     if (response.status === 200) {
       const user_id = response.data.user.id;

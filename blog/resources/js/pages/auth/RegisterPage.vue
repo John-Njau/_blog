@@ -22,13 +22,12 @@ const formErrors = {
 const router = useRouter();
 
 
-const baseURL = `${window.location.origin}/api/register`;
 
 // submit form
 const submitForm = async () => {
   try {
     // Send a POST request to register the user
-    const response = await axios.post(baseURL, formData);
+    const response = await axios.post('/api/register', formData);
 
     if (response.status === 201) {
       console.log(response.data);

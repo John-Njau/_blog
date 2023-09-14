@@ -45,6 +45,3 @@ Route::get('admin/users', [UserController::class, 'index'])->middleware('can:adm
 Route::put('admin/users/{user}', [UserController::class, 'update'])->middleware('can:admin');
 Route::delete('admin/users/{user}', [UserController::class, 'destroy'])->middleware('can:admin');
 Route::get('admin/users/{user}/edit', [UserController::class, 'edit'])->middleware('can:admin');
-
-
-

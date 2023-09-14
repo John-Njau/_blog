@@ -1,67 +1,44 @@
 <script setup>
-import axios from 'axios'
+import axios from "axios";
 
-import { useRoute } from 'vue-router'
+import { useRoute } from "vue-router";
 
-import CommentForm from './CommentForm.vue'
-import CommentComp from './CommentComp.vue'
-import { ref, onMounted } from 'vue'
+import CommentForm from "./CommentForm.vue";
+import CommentComp from "./CommentComp.vue";
+import { ref, onMounted } from "vue";
 
-const baseURL = 'http://127.0.0.1:8000/api'
-const route = useRoute()
+const route = useRoute();
 
-const postComments = ref([])
-// const authorName = ref('')
-
+const postComments = ref([]);
+const authorName = ref("");
 
 // fetch the post slug from the route params
 const post = ref({
-  slug: ''
-})
+  slug: "",
+});
 
 const fetchPostComments = async () => {
   try {
-    const response = await axios.get(baseURL + `/posts/${route.params.slug}/comments`)
-    postComments.value = response.data
-    console.log('Post Comments', postComments)
+    const response = await axios.get(
+      `/api/posts/${route.params.slug}/comments`
+    );
+    postComments.value = response.data;
+    console.log("Post Comments", postComments);
   } catch (error) {
-    console.error('Error fetching post comments:', error)
+    console.error("Error fetching post comments:", error);
   }
-}
-
-async function fetchUserById(userId) {
-  try {
-    const response = await axios.get(baseURL + `/users/${userId}`) 
-    return response.data 
-  } catch (error) {
-    console.error('Error fetching user:', error)
-    return null 
-  }
-}
+};
 
 onMounted(() => {
-  fetchPostComments()
-  fetchUserById()
-})
-
-const getAuthorName = async (userId) => {
-  const user = await fetchUserById(userId)
-  console.log('user', user.name);
-  return user ? user.name : 'Unknown'
-}
-
-const authorName = getAuthorName()
-
-console.log('postComments', fetchPostComments())
+  fetchPostComments();
+});
 </script>
 
 <template>
   <section class="col-span-8 col-start-5 mt-10 space-y-6">
-    <!-- Add comment form -->
     <CommentForm :post="post" />
-    <!-- Other comments -->
     <div v-for="comment in postComments" :key="comment.id">
-      <CommentComp :comment="comment" :authorName="authorName"  />
+      <CommentComp :comment="comment" />
     </div>
   </section>
 </template>

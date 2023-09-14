@@ -3,20 +3,14 @@ import NavBar from "../../components/layout/NavBar.vue";
 import Footer from "../../components/layout/FooterComp.vue";
 import FeaturedPost from "../../components/posts/FeaturedPost.vue";
 
-// import counter.js from store
+import { useDateFormatStore } from "../../store/dateFormat";
 import { useCounterStore } from "../../store/counter";
 
-const counter = useCounterStore();
-
-// counter.count++;
-
-// counter.$patch({ count: counter.count + 1 });
-
-// counter.increment();
-
-// use axios to fetch posts
 import axios from "axios";
 import { ref, onMounted } from "vue";
+
+const counter = useCounterStore();
+const dateFormatStore = useDateFormatStore();
 
 const posts = ref([]);
 let featuredPost = null;
@@ -44,7 +38,6 @@ const fetchPosts = async () => {
 
 // get categories from the server
 
-
 const categories = [
   {
     name: "Personal",
@@ -63,40 +56,19 @@ onMounted(() => {
   fetchPosts();
 });
 
-axios.defaults.baseURL = "http://127.0.0.1:8000";
 
 fetchPosts();
 console.log(posts.value);
-
-const formatDate = (dateString) => {
-  const currentDate = new Date();
-  const postDate = new Date(dateString);
-
-  const timeDifference = currentDate - postDate;
-  const seconds = Math.floor(timeDifference / 1000);
-  const minutes = Math.floor(seconds / 60);
-  const hours = Math.floor(minutes / 60);
-  const days = Math.floor(hours / 24);
-
-  if (days > 0) {
-    return `${days} day${days > 1 ? "s" : ""} ago`;
-  } else if (hours > 0) {
-    return `${hours} hour${hours > 1 ? "s" : ""} ago`;
-  } else if (minutes > 0) {
-    return `${minutes} minute${minutes > 1 ? "s" : ""} ago`;
-  } else {
-    return `${seconds} second${seconds !== 1 ? "s" : ""} ago`;
-  }
-};
 </script>
 <template>
   <main style="font-family: Open Sans, sans-serif">
     <section class="px-6 py-8">
       <NavBar />
 
-<!--        counter -->
-        <div @click="counter.$patch({ count: counter.count + 1 })" >
-            Current count: {{counter.count}}</div>
+      <!--        counter -->
+      <div @click="counter.$patch({ count: counter.count + 1 })">
+        Current count: {{ counter.count }}
+      </div>
 
       <header class="max-w-xl mx-auto mt-20 text-center">
         <h1 class="text-4xl">
@@ -215,7 +187,10 @@ const formatDate = (dateString) => {
                     </h1>
 
                     <span class="mt-2 block text-gray-400 text-xs">
-                      Published <time>{{ formatDate(post.created_at) }}</time>
+                      Published
+                      <time>{{
+                        dateFormatStore.formatDate(post.created_at)
+                      }}</time>
                     </span>
                   </div>
                 </header>

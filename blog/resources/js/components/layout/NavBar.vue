@@ -1,59 +1,61 @@
 <script setup>
 // import { RouterLink, RouterView } from 'vue-router'
-import axios from 'axios'
-import { ref, computed } from 'vue'
-import { useRoute } from 'vue-router'
+import axios from "axios";
+import { ref, computed } from "vue";
+import { useRoute } from "vue-router";
 
-const dropdownVisible = ref(false)
+
+// receive admin prop from laravel
+// const { isAdmin } = defineProps(["isAdmin"]);
+
+const dropdownVisible = ref(false);
 
 const toggleDropdown = () => {
-  dropdownVisible.value = !dropdownVisible.value
-}
+  dropdownVisible.value = !dropdownVisible.value;
+};
 
-const isAuthenticated = ref(false)
-const currentUser = ref(null)
-const route = useRoute()
+const isAuthenticated = ref(false);
+const currentUser = ref(null);
+const route = useRoute();
 
 const isDashboardActive = computed(() => {
-  return route.path === '/admin/posts'
-})
+  return route.path === "/admin/posts";
+});
 
 const isNewPostActive = computed(() => {
-  return route.path === '/admin/posts/create'
-})
+  return route.path === "/admin/posts/create";
+});
 
 const logout = () => {
-  localStorage.removeItem('user_id')
-  isAuthenticated.value = false
-  currentUser.value = null
-  window.location.href = '/'
-}
-
-const baseURL = 'http://127.0.0.1:8000/api'
+  localStorage.removeItem("user_id");
+  isAuthenticated.value = false;
+  currentUser.value = null;
+  window.location.href = "/";
+};
 
 // Implement authentication logic here and update isAuthenticated and currentUser accordingly.
 // check if user is authenticated
-const user_id = localStorage.getItem('user_id')
+const user_id = localStorage.getItem("user_id");
 if (user_id) {
-  isAuthenticated.value = true
-  currentUser.value = user_id
+  isAuthenticated.value = true;
+  currentUser.value = user_id;
   // get the user data
 } else {
-  isAuthenticated.value = false
-  currentUser.value = null
+  isAuthenticated.value = false;
+  currentUser.value = null;
 }
 
 const getUser = async () => {
   try {
-    const response = await axios.get(baseURL + '/users/' + user_id)
-    currentUser.value = response.data
-    console.log('user Data', response.data)
+    const response = await axios.get("/api/users/" + user_id);
+    currentUser.value = response.data;
+    console.log("user Data", response.data);
   } catch (error) {
-    console.error('Error fetching user:', error)
+    console.error("Error fetching user:", error);
   }
-}
+};
 
-getUser()
+getUser();
 
 const isAdmin = computed(() => {
   // Check if the currentUser is defined
@@ -65,7 +67,7 @@ const isAdmin = computed(() => {
     console.log('roles', roles)
     return (
       roles.some((role) => role.name === 'Admin' || role.name === 'Moderator') ||
-      username === 'kimtu'
+      username === 'kimtu' || username === 'john'
     )
   } else {
     return false
@@ -77,7 +79,12 @@ const isAdmin = computed(() => {
   <nav class="md:flex md:justify-between md:items-center">
     <div>
       <a href="/">
-        <img src="/images/logo.svg" alt="Laracasts Logo" width="165" height="16" />
+        <img
+          src="/images/logo.svg"
+          alt="Laracasts Logo"
+          width="165"
+          height="16"
+        />
       </a>
     </div>
 
@@ -90,10 +97,14 @@ const isAdmin = computed(() => {
           <div v-if="isAdmin">
             <!-- if the user is an admin -->
             <router-link to="/admin/posts">
-              <div :class="{ active: isDashboardActive }" class="link">Dashboard</div>
+              <div :class="{ active: isDashboardActive }" class="link">
+                Dashboard
+              </div>
             </router-link>
             <router-link to="/admin/posts/create">
-              <div :class="{ active: isNewPostActive }" class="link">New Post</div>
+              <div :class="{ active: isNewPostActive }" class="link">
+                New Post
+              </div>
             </router-link>
             <div @click.prevent="logout" class="link">Log Out</div>
           </div>
@@ -109,8 +120,12 @@ const isAdmin = computed(() => {
         </div>
       </div>
       <div v-else>
-        <a href="/register" class="text-xs font-bold uppercase link">Register</a>
-        <a href="/login" class="ml-3 text-xs font-bold uppercase link">Log in</a>
+        <a href="/register" class="text-xs font-bold uppercase link"
+          >Register</a
+        >
+        <a href="/login" class="ml-3 text-xs font-bold uppercase link"
+          >Log in</a
+        >
       </div>
       <a
         href="#newsletter"
