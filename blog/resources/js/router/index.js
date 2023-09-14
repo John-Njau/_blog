@@ -8,6 +8,10 @@ import NotFoundView from "../pages/NotFoundView.vue";
 import RegisterView from "../pages/auth/RegisterPage.vue";
 import LoginView from "../pages/auth/LoginPage.vue";
 
+// admin routes
+import AllPosts from "../pages/admin/posts/AllPosts.vue";
+import CreatePost from "../pages/admin/posts/CreatePost.vue";
+
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
@@ -33,11 +37,37 @@ const router = createRouter({
             component: PostView,
         },
         {
+            path: "/admin/posts",
+            name: "dashboard",
+            component: AllPosts,
+        },
+        {
+            path: "/admin/posts/create",
+            name: "create-post",
+            component: CreatePost,
+        },
+        {
             path: "/:pathMatch(.*)*",
             name: "not-found",
             component: NotFoundView,
         },
     ],
 });
+    // router.beforeEach((to, from, next) => {
+        // const store = useStore();
+
+    //     if (to.matched.some((record) => record.meta.requiresAuth)) {
+    //         if (!localStorage.getItem("token")) {
+    //             next({
+    //                 name: "login",
+    //             });
+    //         } else {
+    //             next();
+    //         }
+    //     } else {
+    //         next();
+    //     }
+    // }
+// });
 
 export default router;

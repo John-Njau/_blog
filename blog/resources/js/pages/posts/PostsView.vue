@@ -3,7 +3,16 @@ import NavBar from "../../components/layout/NavBar.vue";
 import Footer from "../../components/layout/FooterComp.vue";
 import FeaturedPost from "../../components/posts/FeaturedPost.vue";
 
-// const $route = useRoute()
+// import counter.js from store
+import { useCounterStore } from "../../store/counter";
+
+const counter = useCounterStore();
+
+// counter.count++;
+
+// counter.$patch({ count: counter.count + 1 });
+
+// counter.increment();
 
 // use axios to fetch posts
 import axios from "axios";
@@ -32,6 +41,9 @@ const fetchPosts = async () => {
 
 // other posts should exclude the first post as it already in the featured card
 // const otherPosts = ref([])
+
+// get categories from the server
+
 
 const categories = [
   {
@@ -81,6 +93,10 @@ const formatDate = (dateString) => {
   <main style="font-family: Open Sans, sans-serif">
     <section class="px-6 py-8">
       <NavBar />
+
+<!--        counter -->
+        <div @click="counter.$patch({ count: counter.count + 1 })" >
+            Current count: {{counter.count}}</div>
 
       <header class="max-w-xl mx-auto mt-20 text-center">
         <h1 class="text-4xl">
