@@ -32,8 +32,6 @@ export const useAuthStore = defineStore("auth", {
     }),
 
     getters: {
-        isAuthenticated: (state) => !!state.token,
-
         getIsAuthenticated: (state) => state.isAuthenticated,
         getCurrentUser: (state) => state.currentUser,
     },
@@ -67,7 +65,6 @@ export const useAuthStore = defineStore("auth", {
 
                     // set user id to local storage
                     localStorage.setItem("user_id", user_id);
-                    // set token to local storage
                     localStorage.setItem("token", response.data.token);
 
                     // Redirect to the login page
@@ -79,7 +76,6 @@ export const useAuthStore = defineStore("auth", {
                     }, 1800000);
 
                     // Redirect to the login page
-                    // You may want to handle the redirection in your component.
                     router.push({ name: "posts" });
                 } else {
                     console.error(
