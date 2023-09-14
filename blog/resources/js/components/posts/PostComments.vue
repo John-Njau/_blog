@@ -1,36 +1,32 @@
 <script setup>
-import axios from "axios";
+import { ref, onMounted, watchEffect, computed } from "vue";
 
 import { useRoute } from "vue-router";
 
+import { usePostsStore } from "../../store/posts";
+
 import CommentForm from "./CommentForm.vue";
 import CommentComp from "./CommentComp.vue";
-import { ref, onMounted } from "vue";
 
 const route = useRoute();
-
-const postComments = ref([]);
-const authorName = ref("");
-
-// fetch the post slug from the route params
-const post = ref({
-  slug: "",
-});
-
-const fetchPostComments = async () => {
-  try {
-    const response = await axios.get(
-      `/api/posts/${route.params.slug}/comments`
-    );
-    postComments.value = response.data;
-    console.log("Post Comments", postComments);
-  } catch (error) {
-    console.error("Error fetching post comments:", error);
-  }
-};
+const postsStore = usePostsStore();
 
 onMounted(() => {
-  fetchPostComments();
+  console.log("Slug:", route.params.slug);
+  postsStore.fetchPostComments(route.params.slug);
+});
+
+const post = ref({});
+let postComments = ref([]);
+// const postComments = computed(() => postsStore.getPostComments);
+
+
+// Watch for changes in the store and update post and postComments
+watchEffect(() => {
+  post.value = postsStore.getPost;
+  console.log("Post", post.value);
+  postComments = postsStore.getPostComments;
+  console.log("Post Comments", postComments.value);
 });
 </script>
 

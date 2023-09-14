@@ -1,56 +1,66 @@
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import axios from "axios";
+import { useAuthStore } from "../../store/auth";
+
+// import axios from "axios";
 import NavBar from "../../components/layout/NavBar.vue";
 import Footer from "../../components/layout/FooterComp.vue";
 
-const formData = ref({
-  email: "",
-  password: "",
-});
+// const formData = ref({
+//   email: "",
+//   password: "",
+// });
 
-const formErrors = ref({
-  email: "",
-  password: "",
-});
+// const formErrors = ref({
+//   email: "",
+//   password: "",
+// });
 
 
 
 const router = useRouter();
+const authStore = useAuthStore();
 
-// submit form
-const submitForm = async () => {
-  try {
-    // Send a POST request to register the user
-    const response = await axios.post("/api/login", formData.value);
-
-    if (response.status === 200) {
-      const user_id = response.data.user.id;
-      console.log("user Data", response.data.user);
-
-      // set user id to local storage
-      localStorage.setItem("user_id", user_id);
-
-      // Redirect to the login page
-      setTimeout(() => {
-        localStorage.removeItem("user_id");
-      }, 1800000);
-
-      // Redirect to the login page
-      router.push({ name: "posts" });
-    } else {
-      console.error("Unexpected response status:", response.status);
-    }
-  } catch (error) {
-    if (error.response && error.response.data.errors) {
-      formErrors.value = error.response.data.errors;
-      console.log("Errors", formErrors.value);
-    } else {
-      console.error("An error occurred:", error.message);
-    }
-  }
+const submitForm = () => {
+  authStore.login();
 };
+
+const formData = authStore.loginFormData;
+const formErrors = authStore.loginFormErrors;
+
+// submit login form
+// const submitForm = async () => {
+//   try {
+//     // Send a POST request to register the user
+//     const response = await axios.post("/api/login", formData.value);
+
+//     if (response.status === 200) {
+//       const user_id = response.data.user.id;
+//       console.log("user Data", response.data.user);
+
+//       // set user id to local storage
+//       localStorage.setItem("user_id", user_id);
+
+//       // Redirect to the login page
+//       setTimeout(() => {
+//         localStorage.removeItem("user_id");
+//       }, 1800000);
+
+//       // Redirect to the login page
+//       router.push({ name: "posts" });
+//     } else {
+//       console.error("Unexpected response status:", response.status);
+//     }
+//   } catch (error) {
+//     if (error.response && error.response.data.errors) {
+//       formErrors.value = error.response.data.errors;
+//       console.log("Errors", formErrors.value);
+//     } else {
+//       console.error("An error occurred:", error.message);
+//     }
+//   }
+// };
 </script>
 
 <template>

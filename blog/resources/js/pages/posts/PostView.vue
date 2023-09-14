@@ -1,35 +1,34 @@
 <script setup>
-import { useDateFormatStore } from "../../store/dateFormat";
+import { ref, onMounted, computed } from "vue";
+
 import NavBar from "../../components/layout/NavBar.vue";
 import Footer from "../../components/layout/FooterComp.vue";
-import axios from "axios";
-import { ref, onMounted, computed } from "vue";
+
+import { useDateFormatStore } from "../../store/dateFormat";
+import { usePostsStore } from "../../store/posts";
+
 import { useRoute } from "vue-router";
 
 import PostComments from "../../components/posts/PostComments.vue";
 
 const dateFormatStore = useDateFormatStore();
+const postsStore = usePostsStore();
 
 const route = useRoute();
-const post = ref(null);
-const slug = computed(() => route.params.slug);
 
-// Fetch post data based on the route parameter (slug)
-const fetchPost = async () => {
-  try {
-    const response = await axios.get(`/api/posts/${slug.value}`);
-    post.value = response.data;
-    console.log(post.value);
-  } catch (error) {
-    console.error("Error fetching post:", error);
-  }
-};
+const isLoading = ref(true);
 
 onMounted(() => {
-  fetchPost();
+  console.log("Slug:", route.params.slug);
+  postsStore.fetchPost(route.params.slug);
+  console.log("Fetched Post:", postsStore.getPost);
+  isLoading.value = false;
 });
 
-console.log(post.value);
+const post = computed(() => postsStore.getPost);
+console.log("Computed Post:", post);
+
+console.log("post", post);
 </script>
 
 <template>
@@ -37,6 +36,7 @@ console.log(post.value);
     <NavBar />
     <section class="px-6 py-8">
       <main class="max-w-6xl mx-auto mt-10 lg:mt-20 space-y-6">
+        <div v-if="isLoading" class="text-center">Loading...</div>
         <article
           v-if="post"
           class="max-w-4xl mx-auto lg:grid lg:grid-cols-12 gap-x-10"
@@ -57,11 +57,11 @@ console.log(post.value);
             </p>
             <div class="flex items-center lg:justify-center text-sm mt-4">
               <img src="/images/lary-avatar.svg" alt="Lary avatar" />
-              <div class="ml-3 text-left">
+              <!-- <div class="ml-3 text-left">
                 <router-link :to="'/?author=' + post.author.username">{{
                   post.author.name
                 }}</router-link>
-              </div>
+              </div> -->
             </div>
           </div>
 
@@ -87,14 +87,14 @@ console.log(post.value);
                 </svg>
                 Back to Posts
               </router-link>
-              <div class="space-x-2">
+              <!-- <div class="space-x-2">
                 <a
                   :href="'/?category=' + post.category.slug"
                   class="px-3 py-1 border border-blue-300 rounded-full text-blue-300 text-xs uppercase font-semibold"
                   style="font-size: 10px"
                   >{{ post.category.name }}</a
                 >
-              </div>
+              </div> -->
             </div>
 
             <h1 class="font-bold text-3xl lg:text-4xl mb-10">

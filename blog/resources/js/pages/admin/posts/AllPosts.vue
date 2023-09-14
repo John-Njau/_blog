@@ -1,3 +1,24 @@
+<script setup >
+import { ref, computed, onMounted } from "vue";
+
+import AdminLayout from "../../../components/admin/AdminLayout.vue";
+
+import { usePostsStore } from "../../../store/posts";
+import { useAuthStore } from "../../../store/auth";
+
+const postsStore = usePostsStore();
+const authStore = useAuthStore();
+
+const pageHeading = "Dashboard";
+
+onMounted(() => {
+  postsStore.fetchPosts();
+  postsStore.deletePost();
+  authStore.login();
+});
+
+const posts = computed(() => postsStore.getPosts);
+</script>
 <template>
   <AdminLayout :heading="pageHeading">
     <div class="flex flex-col">
@@ -48,44 +69,6 @@
     </div>
   </AdminLayout>
 </template>
-
-  <script setup >
-import AdminLayout from "../../../components/admin/AdminLayout.vue";
-
-import { ref, onMounted } from "vue";
-import { useRouter } from "vue-router";
-import axios from "axios";
-
-const posts = ref([]);
-const router = useRouter();
-
-const pageHeading = "Dashboard";
-
-const fetchPosts = async () => {
-  try {
-    const response = await axios.get("/api/posts");
-    posts.value = response.data.data;
-  } catch (error) {
-    console.error("Error fetching posts:", error);
-  }
-};
-
-const deletePost = async (postId) => {
-  if (confirm("Are you sure you want to delete this post?")) {
-    try {
-      await axios.delete(`/admin/posts/${postId}`);
-      // Remove the deleted post from the local list
-      posts.value = posts.value.filter((post) => post.id !== postId);
-    } catch (error) {
-      console.error("Error deleting post:", error);
-    }
-  }
-};
-
-onMounted(() => {
-  fetchPosts();
-});
-</script>
 
 <style lang="scss" scoped >
 </style>

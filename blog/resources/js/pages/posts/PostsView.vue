@@ -1,42 +1,23 @@
 <script setup>
+import { onMounted, computed } from "vue";
+
 import NavBar from "../../components/layout/NavBar.vue";
 import Footer from "../../components/layout/FooterComp.vue";
 import FeaturedPost from "../../components/posts/FeaturedPost.vue";
 
 import { useDateFormatStore } from "../../store/dateFormat";
-import { useCounterStore } from "../../store/counter";
+import { usePostsStore } from "../../store/posts";
 
-import axios from "axios";
-import { ref, onMounted } from "vue";
-
-const counter = useCounterStore();
 const dateFormatStore = useDateFormatStore();
+const postsStore = usePostsStore();
 
-const posts = ref([]);
-let featuredPost = null;
+// fetch posts on component mount
+onMounted(() => {
+  postsStore.fetchPosts();
+});
 
-// Fetch posts
-const fetchPosts = async () => {
-  try {
-    const response = await axios.get("/api/posts");
-    posts.value = response.data.data;
-
-    if (posts.value.length > 0) {
-      featuredPost = posts.value[0];
-
-      console.log("Featured", featuredPost);
-    }
-
-    console.log(posts.value);
-  } catch (error) {
-    console.error("Error fetching posts:", error);
-  }
-};
-
-// other posts should exclude the first post as it already in the featured card
-// const otherPosts = ref([])
-
-// get categories from the server
+const posts = computed(() => postsStore.getPosts);
+const featuredPost = computed(() => postsStore.getFeaturedPost);
 
 const categories = [
   {
@@ -51,24 +32,13 @@ const categories = [
 
 const selectedCategory = "";
 
-// fetch posts on component mount
-onMounted(() => {
-  fetchPosts();
-});
-
-
-fetchPosts();
+// fetchPosts();
 console.log(posts.value);
 </script>
 <template>
   <main style="font-family: Open Sans, sans-serif">
     <section class="px-6 py-8">
       <NavBar />
-
-      <!--        counter -->
-      <div @click="counter.$patch({ count: counter.count + 1 })">
-        Current count: {{ counter.count }}
-      </div>
 
       <header class="max-w-xl mx-auto mt-20 text-center">
         <h1 class="text-4xl">
@@ -151,7 +121,7 @@ console.log(posts.value);
         <div class="lg:grid lg:grid-cols-3">
           <article
             class="transition-colors duration-300 hover:bg-gray-100 border border-black border-opacity-0 hover:border-opacity-5 rounded-xl"
-            v-for="post in posts"
+            v-for="post in posts.slice(1)"
             :key="post.id"
           >
             <div class="py-6 px-5">

@@ -1,49 +1,19 @@
 <script setup >
-import axios from "axios";
-import { useRouter } from "vue-router";
+
+import { useAuthStore } from "../../store/auth";
 
 import NavBar from "../../components/layout/NavBar.vue";
 import Footer from "../../components/layout/FooterComp.vue";
 
-const formData = {
-  name: "",
-  username: "",
-  email: "",
-  password: "",
-};
-
-const formErrors = {
-  name: "",
-  username: "",
-  email: "",
-  password: "",
-};
-
-const router = useRouter();
-
-
+const authStore = useAuthStore();
 
 // submit form
 const submitForm = async () => {
-  try {
-    // Send a POST request to register the user
-    const response = await axios.post('/api/register', formData);
-
-    if (response.status === 201) {
-      console.log(response.data);
-      router.push({ name: "login" });
-    } else {
-      console.error("Unexpected response status:", response.status);
-    }
-  } catch (error) {
-    if (error.response && error.response.data.errors) {
-      formErrors.value = error.response.data.errors;
-      console.log("Errors", formErrors.value);
-    } else {
-      console.error("An error occurred:", error.message);
-    }
-  }
+  authStore.register();
 };
+
+const formData = authStore.registerFormData;
+const formErrors = authStore.registerFormErrors;
 </script>
 
 <template>

@@ -28,7 +28,6 @@
 <body style="font-family: Open Sans, sans-serif" id="app" >
     <section class="px-6 py-8">
     <vue-app :is-admin="{{ auth()->check() && auth()->user()->can('admin') ? 'true' : 'false' }}" />
-    {{-- <vue-app :is-admin="false" /> --}}
     </section>
 </body>
 
