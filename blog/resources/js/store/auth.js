@@ -1,12 +1,10 @@
 import { defineStore } from "pinia";
 import axios from "axios";
-import { useRouter } from "vue-router";
 
 export const useAuthStore = defineStore("auth", {
     state: () => ({
         currentUser: null,
         token: null,
-        isLoggedIn: false,
         isAuthenticated: false,
         router: null,
 
@@ -35,6 +33,26 @@ export const useAuthStore = defineStore("auth", {
     getters: {
         getIsAuthenticated: (state) => state.isAuthenticated,
         getCurrentUser: (state) => state.currentUser,
+
+        isAdmin: (state) => {
+            // Check if the currentUser is defined
+            if (state.currentUser) {
+                // Check if 'admin' or 'moderator' role is present in the roles array
+                const roles = state.currentUser.roles; // Assuming the roles are stored in the 'roles' property
+                const username = state.currentUser.username;
+
+                return (
+                    roles.some(
+                        (role) =>
+                            role.name === "Admin" || role.name === "Moderator"
+                    ) ||
+                    username === "kimtu" ||
+                    username === "john"
+                );
+            } else {
+                return false;
+            }
+        },
     },
 
     actions: {
@@ -50,8 +68,6 @@ export const useAuthStore = defineStore("auth", {
             }
         },
         async login() {
-            const router = useRouter();
-
             try {
                 // Send a POST request to login the user
                 const response = await axios.post(
@@ -68,16 +84,12 @@ export const useAuthStore = defineStore("auth", {
                     localStorage.setItem("user_id", user_id);
                     localStorage.setItem("token", response.data.token);
 
-                    // Redirect to the login page
                     setTimeout(() => {
                         localStorage.removeItem("user_id");
                         localStorage.removeItem("token");
                         this.currentUser = null;
                         this.token = null;
                     }, 1800000);
-
-                    // Redirect to the login page
-                    router.push({ name: "posts" });
                 } else {
                     console.error(
                         "Unexpected response status:",
@@ -94,34 +106,17 @@ export const useAuthStore = defineStore("auth", {
             }
         },
 
-        // check if user is admin
-        async isAdmin() {
-            computed(() => {
-                // Check if the currentUser is defined
-                if (currentUser.value) {
-                    // Check if 'admin' or 'moderator' role is present in the roles array
-                    const roles = currentUser.value.roles; // Assuming the roles are stored in the 'roles' property
-                    const username = currentUser.value.username;
-                    console.log("username", username);
-                    console.log("roles", roles);
-                    return (
-                        roles.some(
-                            (role) =>
-                                role.name === "Admin" ||
-                                role.name === "Moderator"
-                        ) ||
-                        username === "kimtu" ||
-                        username === "john"
-                    );
-                } else {
-                    return false;
-                }
-            });
+        async getUser(user_id) {
+            try {
+                const response = await axios.get("/api/users/" + user_id);
+                this.currentUser = response.data;
+                console.log("user Data", response.data);
+            } catch (error) {
+                console.error("Error fetching user:", error);
+            }
         },
 
         logout() {
-            const router = useRouter();
-
             localStorage.removeItem("user_id");
             localStorage.removeItem("token");
 
@@ -132,8 +127,6 @@ export const useAuthStore = defineStore("auth", {
         },
 
         async register() {
-            const router = useRouter();
-
             // if user is authenticated, redirect to home page
             if (this.isAuthenticated) {
                 router.push({ name: "posts" });
@@ -148,7 +141,6 @@ export const useAuthStore = defineStore("auth", {
 
                 if (response.status === 201) {
                     console.log(response.data);
-                    router.push({ name: "login" });
                 } else {
                     console.error(
                         "Unexpected response status:",

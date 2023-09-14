@@ -10,6 +10,12 @@ export const usePostsStore = defineStore("posts", {
         featuredPost: null,
         categories: [],
         selectedCategory: "",
+
+        commentData: {
+            body: "",
+            post_id: "",
+            user_id: "",
+        },
     }),
 
     getters: {
@@ -85,6 +91,32 @@ export const usePostsStore = defineStore("posts", {
                 posts.value = posts.value.filter((post) => post.id !== postId);
             } catch (error) {
                 console.error("Error deleting post:", error);
+            }
+        },
+
+        async addComment(slug) {
+            try {
+                const response = await axios.post(
+                    `/api/posts/${slug}/comments`,
+                    this.commentData
+                );
+                console.log("slug", slug);
+                console.log(response.data);
+                if (response.status === 200) {
+                    window.location.reload();
+                } else {
+                    console.error(
+                        "Unexpected response status:",
+                        response.status
+                    );
+                }
+            } catch (error) {
+                if (error.response && error.response.data.errors) {
+                    formErrors.value = error.response.data.errors;
+                    console.log("Errors", formErrors.value);
+                } else {
+                    console.error("An error occurred:", error.message);
+                }
             }
         },
     },

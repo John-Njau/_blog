@@ -24,6 +24,9 @@ const authStore = useAuthStore();
 
 const submitForm = () => {
   authStore.login();
+
+  // redirect to posts page on successful login
+  router.push({ name: "posts" });
 };
 
 const formData = authStore.loginFormData;

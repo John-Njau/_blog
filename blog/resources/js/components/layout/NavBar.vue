@@ -1,10 +1,7 @@
 <script setup>
-// import { RouterLink, RouterView } from 'vue-router'
-import axios from "axios";
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import { useAuthStore } from "../../store/auth";
-
 
 const authStore = useAuthStore();
 
@@ -17,8 +14,7 @@ const toggleDropdown = () => {
   dropdownVisible.value = !dropdownVisible.value;
 };
 
-const isAuthenticated = ref(false);
-const currentUser = ref(null);
+// const currentUser = ref(null);
 const route = useRoute();
 
 const isDashboardActive = computed(() => {
@@ -33,46 +29,9 @@ const logout = () => {
   authStore.logout();
 };
 
-// Implement authentication logic here and update isAuthenticated and currentUser accordingly.
-// check if user is authenticated
-const user_id = localStorage.getItem("user_id");
-if (user_id) {
-  isAuthenticated.value = true;
-  currentUser.value = user_id;
-  // get the user data
-} else {
-  isAuthenticated.value = false;
-  currentUser.value = null;
-}
-
-const getUser = async () => {
-  try {
-    const response = await axios.get("/api/users/" + user_id);
-    currentUser.value = response.data;
-    console.log("user Data", response.data);
-  } catch (error) {
-    console.error("Error fetching user:", error);
-  }
-};
-
-getUser();
-
-const isAdmin = computed(() => {
-  // Check if the currentUser is defined
-  if (currentUser.value) {
-    // Check if 'admin' or 'moderator' role is present in the roles array
-    const roles = currentUser.value.roles // Assuming the roles are stored in the 'roles' property
-    const username = currentUser.value.username
-    console.log('username', username)
-    console.log('roles', roles)
-    return (
-      roles.some((role) => role.name === 'Admin' || role.name === 'Moderator') ||
-      username === 'kimtu' || username === 'john'
-    )
-  } else {
-    return false
-  }
-})
+onMounted(() => {
+  authStore.getUser(localStorage.getItem("user_id"));
+});
 </script>
 
 <template>
@@ -89,7 +48,7 @@ const isAdmin = computed(() => {
     </div>
 
     <div class="mt-8 md:mt-0 flex items-center">
-      <div v-if="isAuthenticated">
+      <div v-if="authStore.isAuthenticated">
         <button class="text-xs font-bold uppercase" @click="toggleDropdown">
           Welcome, {{ currentUser.name }}!
         </button>

@@ -1,15 +1,19 @@
 <script setup >
 
 import { useAuthStore } from "../../store/auth";
+import { useRouter } from "vue-router";
 
 import NavBar from "../../components/layout/NavBar.vue";
 import Footer from "../../components/layout/FooterComp.vue";
 
 const authStore = useAuthStore();
 
+const router = useRouter();
+
 // submit form
 const submitForm = async () => {
   authStore.register();
+  router.push({ name: "login" });
 };
 
 const formData = authStore.registerFormData;
