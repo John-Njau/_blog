@@ -29,6 +29,12 @@ const logout = () => {
   authStore.logout();
 };
 
+// get current user
+const currentUser = computed(() => authStore.getCurrentUser);
+
+// get isAdmin
+const isAdmin = computed(() => authStore.isAdmin);
+
 onMounted(() => {
   authStore.getUser(localStorage.getItem("user_id"));
 });

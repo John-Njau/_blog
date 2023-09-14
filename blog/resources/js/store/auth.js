@@ -79,6 +79,8 @@ export const useAuthStore = defineStore("auth", {
                     const user_id = response.data.user.id;
                     this.currentUser = user_id;
                     console.log("user Data", response.data.user);
+                    console.log("username", response.data.user.name);
+                    this.isAuthenticated = true;
 
                     // set user id to local storage
                     localStorage.setItem("user_id", user_id);
