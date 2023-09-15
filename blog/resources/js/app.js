@@ -4,7 +4,6 @@ import { createPinia } from "pinia";
 import App from "./App.vue";
 import router from "./router";
 
-
 const pinia = createPinia();
 
 // Create a Vue app instance
@@ -20,7 +19,7 @@ app.mount("#app");
 // Create the Inertia.js app
 createInertiaApp({
     progress: {
-        color: '#29d',
+        color: "#29d",
     },
     resolve: (name) => require(`./Pages/${name}`).default,
     setup({ el, App, props }) {
@@ -34,4 +33,3 @@ createInertiaApp({
         app.mount(el);
     },
 });
-

@@ -14,10 +14,8 @@
 @inertiaHead
 </head>
 
-<body style="font-family: Open Sans, sans-serif" id="app" >
-    <section class="px-6 py-8">
+<body style="font-family: Open Sans, sans-serif" class="px-6 py-8" id="app" >
         @inertia
-    </section>
 </body>
 </html>
 
