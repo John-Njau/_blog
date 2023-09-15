@@ -1,5 +1,9 @@
 <!doctype html>
-
+<html class="h-full bg-gray-100">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <title>Laravel From Scratch Blog</title>
 <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -8,29 +12,14 @@
 {{-- refererence to vue --}}
 @vite(['resources/css/app.css', 'resources/js/app.js'])
 @inertiaHead
-
-
-<style>
-    html {
-        scroll-behavior: smooth;
-    }
-    .clamp{
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-    }
-
-    .clamp.one-line {
-        -webkit-line-clamp: 1;
-    }
-
-</style>
+</head>
 
 <body style="font-family: Open Sans, sans-serif" id="app" >
     <section class="px-6 py-8">
         @inertia
-    <vue-app :is-admin="{{ auth()->check() && auth()->user()->can('admin') ? 'true' : 'false' }}" />
     </section>
 </body>
+</html>
+
 
 
