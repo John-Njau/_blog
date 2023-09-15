@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Inertia\Inertia;
+use Inertia\Response;
 use App\Models\Post;
 use Illuminate\Validation\Rule;
 
@@ -11,14 +13,16 @@ class AdminPostController extends Controller
 
     public function index()
     {
-        return view('admin.posts.index', [
-            'posts' => Post::latest()->filter(request(['search', 'category', 'author']))->paginate(6)->withQueryString(),
+        $posts = Post::latest()->filter(request(['search', 'category', 'author']))->paginate(6)->withQueryString();
+
+        return Inertia::render('admin/posts/index', [
+            'posts' => $posts,
         ]);
     }
 
     public function create()
     {
-        return view('admin.posts.create');
+        return Inertia::render('admin/posts/create');
     }
 
     public function store()
@@ -34,7 +38,7 @@ class AdminPostController extends Controller
 
         Post::create($attributes);
 
-        return redirect('/');
+        return redirect()->route('admin.posts.index')->with('success', 'Post Created!');
     }
 
     public function update(Post $post)
@@ -53,12 +57,15 @@ class AdminPostController extends Controller
 
         $post->update($attributes);
 //
-        return back()->with('success', 'Post Updated!');
+return redirect()->back()->with('success', 'Post Updated!');
+
     }
 
     public function edit(Post $post)
     {
-        return view('admin.posts.edit', compact('post'));
+        return Inertia::render('admin/posts/edit', [
+            'post' => $post,
+        ]);
     }
 
 
@@ -66,7 +73,7 @@ class AdminPostController extends Controller
     {
         $post->delete();
 
-        return back()->with('success', 'Post Deleted!');
+        return redirect()->back()->with('success', 'Post Deleted!');
     }
 
     /**

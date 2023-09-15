@@ -7,12 +7,14 @@ use App\Models\User;
 use App\Models\Role;
 use Illuminate\Http\Request;
 
+use Inertia\Inertia;
+
 class RegisterController extends Controller
 {
     //
     public function create()
     {
-        return view('register.create');
+        return Inertia::render('register/create');
 
     }
 
@@ -46,6 +48,7 @@ class RegisterController extends Controller
 //        // redirect
         return redirect('/')->with('success', 'Your account has been created.');
 
+//        return redirect()->route('register.create')->with('success', 'Your account has been created.');
     }
 
     public function TestVueRegister()

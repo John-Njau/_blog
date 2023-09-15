@@ -2,17 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use Inertia\Inertia;
+
 use App\Models\Post;
 
 class PostCommentsController
 {
     public function index(Post $post)
     {
-        return view('posts.show', [
-            'post' => $post
+        $comments = $post->comments()->get();
+
+        return Inertia::render('posts/show', [
+            'post' => $post,
+            'comments' => $comments,
         ]);
 
-//        return response()->json($post);
     }
 
     public function store(Post $post)

@@ -1,11 +1,9 @@
 import { createApp, h } from "vue";
-import { InertiaProgress } from "@inertiajs/progress";
-import { createInertiaApp } from "@inertiajs/inertia-vue3";
+import { createInertiaApp } from "@inertiajs/vue3";
 import { createPinia } from "pinia";
 import App from "./App.vue";
 import router from "./router";
 
-InertiaProgress.init();
 
 const pinia = createPinia();
 
@@ -21,8 +19,11 @@ app.mount("#app");
 
 // Create the Inertia.js app
 createInertiaApp({
+    progress: {
+        color: '#29d',
+    },
     resolve: (name) => require(`./Pages/${name}`).default,
-    setup({ el, app, props }) {
+    setup({ el, App, props }) {
         // Attach the Inertia.js route to global properties
         app.config.globalProperties.$route = props.route;
 

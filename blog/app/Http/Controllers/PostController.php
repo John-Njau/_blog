@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Inertia\Inertia;
+
+
 use App\Models\Post;
 use Illuminate\Support\Facades\Gate;
 use Symfony\Component\HttpFoundation\Response;
@@ -11,15 +14,14 @@ class PostController extends Controller
     //
     public function index()
     {
-//        view has been changed to response to create an api
-        return view('posts.index', [
-            'posts' => Post::latest()
-                ->filter(request(['search', 'category', 'author']))
-                ->paginate(18)
-                ->withQueryString(),
+        $posts = Post::latest()
+            ->filter(request(['search', 'category', 'author']))
+            ->paginate(18)
+            ->withQueryString();
+
+        return Inertia::render('posts/index', [
+            'posts' => $posts,
         ]);
-
-
     }
 
     public function allPosts()
@@ -35,16 +37,13 @@ class PostController extends Controller
 
     public function show(Post $post)
     {
-        return view("posts.show", [
-            "post" => $post
+        return Inertia::render('posts/show', [
+            'post' => $post,
         ]);
-
     }
 
     public function showSinglePost(Post $post)
     {
         return response()->json($post);
     }
-
-
 }

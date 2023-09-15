@@ -2,13 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use Inertia\Inertia;
+
 use App\Services\Newsletter;
 use Exception;
 use Illuminate\Validation\ValidationException;
 
 class NewsletterController
 {
-    public function __invoke(Newsletter $newsletter)
+    public function __invoke()
+    {
+        return Inertia::render('newsletter/subscription');
+    }
+
+    public function subscribe(Newsletter $newsletter)
     {
 
 //        dd($newsletter);

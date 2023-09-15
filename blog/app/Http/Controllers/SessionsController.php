@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
+use Inertia\Inertia;
+
 
 class SessionsController extends Controller
 {
 
     public function create()
     {
-        return view('sessions.create');
+        return Inertia::render('sessions/create');
     }
 
     public function store()
