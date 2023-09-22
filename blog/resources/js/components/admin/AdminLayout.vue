@@ -1,11 +1,11 @@
-<script setup >
-import NavBar from "../layout/NavBar.vue";
-import FooterComp from "../layout/FooterComp.vue";
-import { defineProps } from "vue";
+<script setup>
+import NavBar from '../layout/NavBar.vue'
+import FooterComp from '../layout/FooterComp.vue'
+import { defineProps } from 'vue'
 
 const props = defineProps({
-  heading: String,
-});
+  heading: String
+})
 </script>
 <template>
   <main>
@@ -27,7 +27,7 @@ const props = defineProps({
               <router-link
                 to="/admin/posts/create"
                 :class="{
-                  'text-blue-500': $route.path === '/admin/posts/create',
+                  'text-blue-500': $route.path === '/admin/posts/create'
                 }"
                 >New Post</router-link
               >
@@ -49,4 +49,3 @@ const props = defineProps({
     <FooterComp />
   </main>
 </template>
-  

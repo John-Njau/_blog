@@ -1,32 +1,30 @@
-<script setup  >
-import { ref, defineProps, onMounted, computed } from "vue";
-import { useDateFormatStore } from "../../store/dateFormat";
-import { usePostsStore } from "../../store/posts";
+<script setup>
+import { ref, defineProps, onMounted, computed } from 'vue'
+import { useDateFormatStore } from '../../store/dateFormat'
+import { usePostsStore } from '../../store/posts'
 
 const props = defineProps({
-  comment: Object,
-});
+  comment: Object
+})
 
-const dateFormatStore = useDateFormatStore();
+const dateFormatStore = useDateFormatStore()
 
-const postsStore = usePostsStore();
+const postsStore = usePostsStore()
 
-const commentAuthor = ref("");
+const commentAuthor = ref('')
 
 // Fetch the username when the component is mounted
 onMounted(async () => {
   // console.log("user Id", props.comment.user_id);
-  const author_id = props.comment.user_id;
-  await postsStore.fetchCommentAuthor(author_id);
-  commentAuthor.value = postsStore.getCommentAuthor;
+  const author_id = props.comment.user_id
+  await postsStore.fetchCommentAuthor(author_id)
+  commentAuthor.value = postsStore.getCommentAuthor
 
   // console.log("Comment Author in comment comp", commentAuthor.value);
-});
+})
 </script>
 <template>
-  <article
-    class="flex bg-gray-100 border border-gray-200 p-6 rounded-xl space-x-4"
-  >
+  <article class="flex bg-gray-100 border border-gray-200 p-6 rounded-xl space-x-4">
     <div class="flex-shrink-0">
       <img
         :src="`https://i.pravatar.cc/60?u=${props.comment.user_id}`"
@@ -48,4 +46,3 @@ onMounted(async () => {
     </div>
   </article>
 </template>
-  

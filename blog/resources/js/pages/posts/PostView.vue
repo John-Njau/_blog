@@ -1,34 +1,34 @@
 <script setup>
-import { ref, onMounted, computed } from "vue";
+import { ref, onMounted, computed } from 'vue'
 
-import NavBar from "../../components/layout/NavBar.vue";
-import Footer from "../../components/layout/FooterComp.vue";
+import NavBar from '../../components/layout/NavBar.vue'
+import Footer from '../../components/layout/FooterComp.vue'
 
-import { useDateFormatStore } from "../../store/dateFormat";
-import { usePostsStore } from "../../store/posts";
+import { useDateFormatStore } from '../../store/dateFormat'
+import { usePostsStore } from '../../store/posts'
 
-import { useRoute } from "vue-router";
+import { useRoute } from 'vue-router'
 
-import PostComments from "../../components/posts/PostComments.vue";
+import PostComments from '../../components/posts/PostComments.vue'
 
-const dateFormatStore = useDateFormatStore();
-const postsStore = usePostsStore();
+const dateFormatStore = useDateFormatStore()
+const postsStore = usePostsStore()
 
-const route = useRoute();
+const route = useRoute()
 
-const isLoading = ref(true);
+const isLoading = ref(true)
 
 onMounted(() => {
-  console.log("Slug:", route.params.slug);
-  postsStore.fetchPost(route.params.slug);
-  console.log("Fetched Post:", postsStore.getPost);
-  isLoading.value = false;
-});
+  console.log('Slug:', route.params.slug)
+  postsStore.fetchPost(route.params.slug)
+  console.log('Fetched Post:', postsStore.getPost)
+  isLoading.value = false
+})
 
-const post = computed(() => postsStore.getPost);
-console.log("Computed Post:", post);
+const post = computed(() => postsStore.getPost)
+console.log('Computed Post:', post)
 
-console.log("post", post);
+console.log('post', post)
 </script>
 
 <template>
@@ -37,17 +37,10 @@ console.log("post", post);
     <section class="px-6 py-8">
       <main class="max-w-6xl mx-auto mt-10 lg:mt-20 space-y-6">
         <div v-if="isLoading" class="text-center">Loading...</div>
-        <article
-          v-if="post"
-          class="max-w-4xl mx-auto lg:grid lg:grid-cols-12 gap-x-10"
-        >
+        <article v-if="post" class="max-w-4xl mx-auto lg:grid lg:grid-cols-12 gap-x-10">
           <div class="col-span-4 lg:text-center lg:pt-14 mb-10">
             <img
-              :src="
-                post.thumbnail
-                  ? '' + post.thumbnail
-                  : '/images/illustration-3.png'
-              "
+              :src="post.thumbnail ? '' + post.thumbnail : '/images/illustration-3.png'"
               alt=""
               class="rounded-xl"
             />
@@ -118,6 +111,4 @@ console.log("post", post);
     <Footer />
   </main>
 </template>
-<style>
-</style>
-
+<style></style>

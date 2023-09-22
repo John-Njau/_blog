@@ -1,33 +1,32 @@
 <script setup>
-import { ref, onMounted, watchEffect, computed } from "vue";
+import { ref, onMounted, watchEffect, computed } from 'vue'
 
-import { useRoute } from "vue-router";
+import { useRoute } from 'vue-router'
 
-import { usePostsStore } from "../../store/posts";
+import { usePostsStore } from '../../store/posts'
 
-import CommentForm from "./CommentForm.vue";
-import CommentComp from "./CommentComp.vue";
+import CommentForm from './CommentForm.vue'
+import CommentComp from './CommentComp.vue'
 
-const route = useRoute();
-const postsStore = usePostsStore();
+const route = useRoute()
+const postsStore = usePostsStore()
 
 onMounted(() => {
-  console.log("Slug:", route.params.slug);
-  postsStore.fetchPostComments(route.params.slug);
-});
+  console.log('Slug:', route.params.slug)
+  postsStore.fetchPostComments(route.params.slug)
+})
 
-const post = ref({});
-let postComments = ref([]);
+const post = ref({})
+let postComments = ref([])
 // const postComments = computed(() => postsStore.getPostComments);
-
 
 // Watch for changes in the store and update post and postComments
 watchEffect(() => {
-  post.value = postsStore.getPost;
-  console.log("Post", post.value);
-  postComments = postsStore.getPostComments;
-  console.log("Post Comments", postComments.value);
-});
+  post.value = postsStore.getPost
+  console.log('Post', post.value)
+  postComments = postsStore.getPostComments
+  console.log('Post Comments', postComments.value)
+})
 </script>
 
 <template>
@@ -39,5 +38,4 @@ watchEffect(() => {
   </section>
 </template>
 
-<style lang="scss" scoped >
-</style>
+<style lang="scss" scoped></style>

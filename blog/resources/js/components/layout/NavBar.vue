@@ -1,55 +1,50 @@
 <script setup>
-import { ref, computed, onMounted } from "vue";
-import { useRoute } from "vue-router";
-import { useAuthStore } from "../../store/auth";
+import { ref, computed, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
+import { useAuthStore } from '../../store/auth'
 
-const authStore = useAuthStore();
+const authStore = useAuthStore()
 
 // receive admin prop from laravel
 // const { isAdmin } = defineProps(["isAdmin"]);
 
-const dropdownVisible = ref(false);
+const dropdownVisible = ref(false)
 
 const toggleDropdown = () => {
-  dropdownVisible.value = !dropdownVisible.value;
-};
+  dropdownVisible.value = !dropdownVisible.value
+}
 
 // const currentUser = ref(null);
-const route = useRoute();
+const route = useRoute()
 
 const isDashboardActive = computed(() => {
-  return route.path === "/admin/posts";
-});
+  return route.path === '/admin/posts'
+})
 
 const isNewPostActive = computed(() => {
-  return route.path === "/admin/posts/create";
-});
+  return route.path === '/admin/posts/create'
+})
 
 const logout = () => {
-  authStore.logout();
-};
+  authStore.logout()
+}
 
 // get current user
-const currentUser = computed(() => authStore.getCurrentUser);
+const currentUser = computed(() => authStore.getCurrentUser)
 
 // get isAdmin
-const isAdmin = computed(() => authStore.isAdmin);
+const isAdmin = computed(() => authStore.isAdmin)
 
 onMounted(() => {
-  authStore.getUser(localStorage.getItem("user_id"));
-});
+  authStore.getUser(localStorage.getItem('user_id'))
+})
 </script>
 
 <template>
   <nav class="md:flex md:justify-between md:items-center">
     <div>
       <a href="/">
-        <img
-          src="/images/logo.svg"
-          alt="Laracasts Logo"
-          width="165"
-          height="16"
-        />
+        <img src="/images/logo.svg" alt="Laracasts Logo" width="165" height="16" />
       </a>
     </div>
 
@@ -62,14 +57,10 @@ onMounted(() => {
           <div v-if="isAdmin">
             <!-- if the user is an admin -->
             <router-link to="/admin/posts">
-              <div :class="{ active: isDashboardActive }" class="link">
-                Dashboard
-              </div>
+              <div :class="{ active: isDashboardActive }" class="link">Dashboard</div>
             </router-link>
             <router-link to="/admin/posts/create">
-              <div :class="{ active: isNewPostActive }" class="link">
-                New Post
-              </div>
+              <div :class="{ active: isNewPostActive }" class="link">New Post</div>
             </router-link>
             <div @click.prevent="logout" class="link">Log Out</div>
           </div>
@@ -85,12 +76,8 @@ onMounted(() => {
         </div>
       </div>
       <div v-else>
-        <a href="/register" class="text-xs font-bold uppercase link"
-          >Register</a
-        >
-        <a href="/login" class="ml-3 text-xs font-bold uppercase link"
-          >Log in</a
-        >
+        <a href="/register" class="text-xs font-bold uppercase link">Register</a>
+        <a href="/login" class="ml-3 text-xs font-bold uppercase link">Log in</a>
       </div>
       <a
         href="#newsletter"
@@ -102,7 +89,7 @@ onMounted(() => {
   </nav>
 </template>
 
-<style lang="scss" scoped >
+<style lang="scss" scoped>
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.3s;

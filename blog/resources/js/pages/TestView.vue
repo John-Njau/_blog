@@ -1,11 +1,5 @@
 <template>
-    <div>
-        Test
-    </div>
+  <div>Test</div>
 </template>
-<script setup >
-
-</script>
-<style lang="">
-    
-</style>
+<script setup></script>
+<style lang=""></style>

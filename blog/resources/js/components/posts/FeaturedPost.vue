@@ -1,10 +1,10 @@
-<script setup >
-import { useDateFormatStore } from "../../store/dateFormat";
-import { defineProps } from "vue";
+<script setup>
+import { useDateFormatStore } from '../../store/dateFormat'
+import { defineProps } from 'vue'
 
-const { post } = defineProps(["post"]);
+const { post } = defineProps(['post'])
 
-const dateFormatStore = useDateFormatStore();
+const dateFormatStore = useDateFormatStore()
 </script>
 <template>
   <article
@@ -14,11 +14,7 @@ const dateFormatStore = useDateFormatStore();
     <div class="py-6 px-5 lg:flex">
       <div class="flex-1 lg:mr-8">
         <div>
-          <img
-            src="/images/illustration-3.png"
-            alt="Blog Post illustration"
-            class="rounded-xl"
-          />
+          <img src="/images/illustration-3.png" alt="Blog Post illustration" class="rounded-xl" />
         </div>
       </div>
 
@@ -54,9 +50,7 @@ const dateFormatStore = useDateFormatStore();
             <img src="/images/lary-avatar.svg" alt="Lary avatar" />
             <div class="ml-3">
               <h5 class="font-bold">
-                <a :href="'/?author=' + post.author.username">{{
-                  post.author.name
-                }}</a>
+                <a :href="'/?author=' + post.author.username">{{ post.author.name }}</a>
               </h5>
             </div>
           </div>
@@ -75,6 +69,4 @@ const dateFormatStore = useDateFormatStore();
   </article>
 </template>
 
-
-<style>
-</style>
+<style></style>

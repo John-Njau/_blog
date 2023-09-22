@@ -1,39 +1,33 @@
-<script setup >
+<script setup>
+import { useAuthStore } from '../../store/auth'
+import { useRouter } from 'vue-router'
 
-import { useAuthStore } from "../../store/auth";
-import { useRouter } from "vue-router";
+import NavBar from '../../components/layout/NavBar.vue'
+import Footer from '../../components/layout/FooterComp.vue'
 
-import NavBar from "../../components/layout/NavBar.vue";
-import Footer from "../../components/layout/FooterComp.vue";
+const authStore = useAuthStore()
 
-const authStore = useAuthStore();
-
-const router = useRouter();
+const router = useRouter()
 
 // submit form
 const submitForm = async () => {
-  authStore.register();
-  router.push({ name: "login" });
-};
+  authStore.register()
+  router.push({ name: 'login' })
+}
 
-const formData = authStore.registerFormData;
-const formErrors = authStore.registerFormErrors;
+const formData = authStore.registerFormData
+const formErrors = authStore.registerFormErrors
 </script>
 
 <template>
   <main>
     <NavBar />
     <section class="px-6 py-8">
-      <main
-        class="max-w-lg mx-auto mt-10 bg-gray-100 border-gray-200 p-6 rounded-xl"
-      >
+      <main class="max-w-lg mx-auto mt-10 bg-gray-100 border-gray-200 p-6 rounded-xl">
         <h1 class="text-center font-bold text-xl">Register!</h1>
         <form @submit.prevent="submitForm" class="mt-10">
           <div class="mb-6">
-            <label
-              class="block mb-2 uppercase font-bold text-xs text-gray-700"
-              for="name"
-            >
+            <label class="block mb-2 uppercase font-bold text-xs text-gray-700" for="name">
               Name
             </label>
             <input
@@ -52,10 +46,7 @@ const formErrors = authStore.registerFormErrors;
           </div>
 
           <div class="mb-6">
-            <label
-              class="block mb-2 uppercase font-bold text-xs text-gray-700"
-              for="username"
-            >
+            <label class="block mb-2 uppercase font-bold text-xs text-gray-700" for="username">
               Username
             </label>
             <input
@@ -74,10 +65,7 @@ const formErrors = authStore.registerFormErrors;
           </div>
 
           <div class="mb-6">
-            <label
-              class="block mb-2 uppercase font-bold text-xs text-gray-700"
-              for="email"
-            >
+            <label class="block mb-2 uppercase font-bold text-xs text-gray-700" for="email">
               Email Address
             </label>
             <input
@@ -96,10 +84,7 @@ const formErrors = authStore.registerFormErrors;
           </div>
 
           <div class="mb-6">
-            <label
-              class="block mb-2 uppercase font-bold text-xs text-gray-700"
-              for="password"
-            >
+            <label class="block mb-2 uppercase font-bold text-xs text-gray-700" for="password">
               Password
             </label>
             <input
@@ -131,8 +116,5 @@ const formErrors = authStore.registerFormErrors;
     <Footer />
   </main>
 </template>
-  
- 
-  
-  <style scoped>
-</style>
+
+<style scoped></style>

@@ -1,42 +1,48 @@
 <script setup>
-import { onMounted, computed } from "vue";
+import { onMounted, computed } from 'vue'
 
-import NavBar from "../../components/layout/NavBar.vue";
-import Footer from "../../components/layout/FooterComp.vue";
-import FeaturedPost from "../../components/posts/FeaturedPost.vue";
+import NavBar from '../../components/layout/NavBar.vue'
+import Footer from '../../components/layout/FooterComp.vue'
+import FeaturedPost from '../../components/posts/FeaturedPost.vue'
 
-import { useDateFormatStore } from "../../store/dateFormat";
-import { usePostsStore } from "../../store/posts";
+import { useDateFormatStore } from '../../store/dateFormat'
+import { usePostsStore } from '../../store/posts'
 
-const dateFormatStore = useDateFormatStore();
-const postsStore = usePostsStore();
+const dateFormatStore = useDateFormatStore()
+const postsStore = usePostsStore()
 
 // fetch posts on component mount
 onMounted(() => {
-  postsStore.fetchPosts();
-});
+  postsStore.fetchPosts()
+})
 
-const posts = computed(() => postsStore.getPosts);
-const featuredPost = computed(() => postsStore.getFeaturedPost);
+const posts = computed(() => postsStore.getPosts)
+const featuredPost = computed(() => postsStore.getFeaturedPost)
 
 const categories = [
   {
-    name: "Personal",
-    url: "/categories/personal",
+    name: 'Personal',
+    url: '/categories/personal'
   },
   {
-    name: "Business",
-    url: "/categories/business",
-  },
-];
+    name: 'Business',
+    url: '/categories/business'
+  }
+]
 
-const selectedCategory = "";
+const selectedCategory = ''
 
 // fetchPosts();
-console.log(posts.value);
+console.log(posts.value)
 </script>
 <template>
-  <main style="font-family: Open Sans, sans-serif">
+  <main
+    style="
+      font-family:
+        Open Sans,
+        sans-serif;
+    "
+  >
     <section class="px-6 py-8">
       <NavBar />
 
@@ -51,26 +57,19 @@ console.log(posts.value);
         </h2>
 
         <p class="text-sm mt-14">
-          Another year. Another update. We're refreshing the popular Laravel
-          series with new content. I'm going to keep you guys up to speed with
-          what's going on!
+          Another year. Another update. We're refreshing the popular Laravel series with new
+          content. I'm going to keep you guys up to speed with what's going on!
         </p>
 
         <div class="space-y-2 lg:space-y-0 lg:space-x-4 mt-8">
           <!--  Category -->
-          <div
-            class="relative flex lg:inline-flex items-center bg-gray-100 rounded-xl"
-          >
+          <div class="relative flex lg:inline-flex items-center bg-gray-100 rounded-xl">
             <select
               class="flex-1 appearance-none bg-transparent py-2 pl-3 pr-9 text-sm font-semibold"
               v-model="selectedCategory"
             >
               <option value="category" disabled selected>Category</option>
-              <option
-                v-for="category in categories"
-                :key="category.name"
-                :value="category.name"
-              >
+              <option v-for="category in categories" :key="category.name" :value="category.name">
                 {{ category.name }}
               </option>
             </select>
@@ -98,9 +97,7 @@ console.log(posts.value);
           </div>
 
           <!-- Search -->
-          <div
-            class="relative flex lg:inline-flex items-center bg-gray-100 rounded-xl px-3 py-2"
-          >
+          <div class="relative flex lg:inline-flex items-center bg-gray-100 rounded-xl px-3 py-2">
             <form method="GET" action="#">
               <input
                 type="text"
@@ -158,9 +155,7 @@ console.log(posts.value);
 
                     <span class="mt-2 block text-gray-400 text-xs">
                       Published
-                      <time>{{
-                        dateFormatStore.formatDate(post.created_at)
-                      }}</time>
+                      <time>{{ dateFormatStore.formatDate(post.created_at) }}</time>
                     </span>
                   </div>
                 </header>
@@ -197,7 +192,4 @@ console.log(posts.value);
   </main>
 </template>
 
-
-
-<style lang="scss" scoped >
-</style>
+<style lang="scss" scoped></style>

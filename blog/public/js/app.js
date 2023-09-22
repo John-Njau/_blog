@@ -1,1 +1,1 @@
-alert("Laracast!")
+alert('Laracast!')

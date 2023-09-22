@@ -13,9 +13,8 @@
 </template>
 
 <script setup>
-import NavBar from "../components/layout/NavBar.vue";
-import Footer from "../components/layout/FooterComp.vue";
+import NavBar from '../components/layout/NavBar.vue'
+import Footer from '../components/layout/FooterComp.vue'
 </script>
 
-<style>
-</style>
+<style></style>

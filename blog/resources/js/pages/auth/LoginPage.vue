@@ -1,11 +1,11 @@
 <script setup>
-import { ref } from "vue";
-import { useRouter } from "vue-router";
-import { useAuthStore } from "../../store/auth";
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { useAuthStore } from '../../store/auth'
 
 // import axios from "axios";
-import NavBar from "../../components/layout/NavBar.vue";
-import Footer from "../../components/layout/FooterComp.vue";
+import NavBar from '../../components/layout/NavBar.vue'
+import Footer from '../../components/layout/FooterComp.vue'
 
 // const formData = ref({
 //   email: "",
@@ -17,20 +17,18 @@ import Footer from "../../components/layout/FooterComp.vue";
 //   password: "",
 // });
 
-
-
-const router = useRouter();
-const authStore = useAuthStore();
+const router = useRouter()
+const authStore = useAuthStore()
 
 const submitForm = () => {
-  authStore.login();
+  authStore.login()
 
   // redirect to posts page on successful login
-  router.push({ name: "posts" });
-};
+  router.push({ name: 'posts' })
+}
 
-const formData = authStore.loginFormData;
-const formErrors = authStore.loginFormErrors;
+const formData = authStore.loginFormData
+const formErrors = authStore.loginFormErrors
 
 // submit login form
 // const submitForm = async () => {
@@ -70,18 +68,13 @@ const formErrors = authStore.loginFormErrors;
   <main>
     <NavBar />
     <section class="px-6 py-8">
-      <main
-        class="max-w-lg mx-auto mt-10 bg-gray-100 border-gray-200 p-6 rounded-xl"
-      >
+      <main class="max-w-lg mx-auto mt-10 bg-gray-100 border-gray-200 p-6 rounded-xl">
         <h1 class="text-center font-bold text-xl">Login!</h1>
         <form @submit.prevent="submitForm" class="mt-10">
           <input type="hidden" name="_token" />
 
           <div class="mb-6">
-            <label
-              class="block mb-2 uppercase font-bold text-xs text-gray-700"
-              for="email"
-            >
+            <label class="block mb-2 uppercase font-bold text-xs text-gray-700" for="email">
               Email Address
             </label>
 
@@ -102,10 +95,7 @@ const formErrors = authStore.loginFormErrors;
           </div>
 
           <div class="mb-6">
-            <label
-              class="block mb-2 uppercase font-bold text-xs text-gray-700"
-              for="password"
-            >
+            <label class="block mb-2 uppercase font-bold text-xs text-gray-700" for="password">
               Password
             </label>
 
@@ -135,8 +125,5 @@ const formErrors = authStore.loginFormErrors;
     <Footer />
   </main>
 </template>
-  
 
-  
-  <style scoped>
-</style>
+<style scoped></style>

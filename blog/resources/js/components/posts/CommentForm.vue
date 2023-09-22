@@ -1,38 +1,38 @@
 <script setup>
-import { ref } from "vue";
+import { ref } from 'vue'
 
-import { useRoute } from "vue-router";
+import { useRoute } from 'vue-router'
 
-import axios from "axios";
-import { usePostsStore } from "../../store/posts";
+import axios from 'axios'
+import { usePostsStore } from '../../store/posts'
 
-const isAuthenticated = ref(false);
-const currentUser = ref(null);
-const route = useRoute();
+const isAuthenticated = ref(false)
+const currentUser = ref(null)
+const route = useRoute()
 
-const user_id = localStorage.getItem("user_id");
+const user_id = localStorage.getItem('user_id')
 if (user_id) {
-  isAuthenticated.value = true;
-  currentUser.value = user_id;
+  isAuthenticated.value = true
+  currentUser.value = user_id
 } else {
-  isAuthenticated.value = false;
-  currentUser.value = null;
+  isAuthenticated.value = false
+  currentUser.value = null
 }
 
 const post = ref({
-  slug: "",
-});
+  slug: ''
+})
 
 const formErrors = ref({
-  body: "",
-});
+  body: ''
+})
 
 const comment = ref({
-  body: "",
-});
+  body: ''
+})
 
 const submitComment = async () => {
-  usePostsStore().addComment(route.params.slug);
+  usePostsStore().addComment(route.params.slug)
 
   // const commentData = {
   //   body: comment.value.body,
@@ -57,7 +57,7 @@ const submitComment = async () => {
   //     console.error('An error occurred:', error.message)
   //   }
   // }
-};
+}
 </script>
 
 <template>
@@ -87,9 +87,7 @@ const submitComment = async () => {
           placeholder="Quick, think of something to say!"
           required
         ></textarea>
-        <span class="text-xs text-red-500" v-if="formErrors.body">{{
-          formErrors.body
-        }}</span>
+        <span class="text-xs text-red-500" v-if="formErrors.body">{{ formErrors.body }}</span>
       </div>
       <div class="flex justify-end mt-6 pt-6 border-t border-gray-200">
         <button
@@ -103,10 +101,8 @@ const submitComment = async () => {
     <p v-else class="font-semibold">
       <router-link to="/register" class="hover:underline">Register</router-link>
       or
-      <router-link to="/login" class="hover:underline">Log in</router-link> to
-      leave a comment.
+      <router-link to="/login" class="hover:underline">Log in</router-link> to leave a comment.
     </p>
   </div>
 </template>
-<style scoped>
-</style>
+<style scoped></style>
